@@ -1,14 +1,9 @@
 # this is a python script to clean the data from kaggle
-import numpy as np
-import pandas as pd
-from pandas import dataframe as df
-import geopy as gp
 import os
 import csv
 cleaned_data = "/Users/samanthabastien/Desktop/Desktop - Samantha’s MacBook Pro/fall 2023/tastebudz/repository/tastebudz/dataset/archive/cleaned_data.csv"
 original_data = "/Users/samanthabastien/Desktop/Desktop - Samantha’s MacBook Pro/fall 2023/tastebudz/repository/tastebudz/dataset/archive/restaurants.csv"
 
-cuisine_types = []
 
 #drops restaurants with no ratings and/or number of reviews
 if os.path.exists(cleaned_data) is False:
@@ -23,7 +18,3 @@ if os.path.exists(cleaned_data) is False:
                     writer.writerow(row)
         cd.close()
     od.close()
-
-data = pd.read_csv(cleaned_data)
-data.drop('position')
-
