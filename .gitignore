@@ -1,0 +1,12 @@
+# Python things:
+.venv
+.env
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Mac
+.DS_Store
