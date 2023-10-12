@@ -1,0 +1,13 @@
+[project]
+name = "tastebudz"
+version = "1.0.0"
+description = "Find food faster with Tastebudz - get personalized restaurant recommendations."
+dependencies = [
+    "flask",
+    "supabase",
+    "googlemaps"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
