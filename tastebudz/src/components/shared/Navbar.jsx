@@ -1,15 +1,16 @@
 import React from 'react'
 import Button from './Button'
-import { Colors } from '../data/Constants'
+import { Colors } from '../../data/Constants'
+import TastebudzNavLogo from '../../assets/tastebudz-logo.png'
 
 function Navbar() {
   return (
     <div style={styles.navContainer}>
       <nav style={styles.navbar}>
-        <h1 style={styles.logo}>Tastebudz</h1>
+        <img style={styles.logo} src={TastebudzNavLogo}/>
         <div style={styles.buttonContainer}>
-            <Button buttonText={'Login'}></Button>
-            <Button buttonText={'Sign Up'}></Button>
+            <Button buttonText={'Login'} buttonSize={'fit-content'}></Button>
+            <Button buttonText={'Sign Up'} buttonSize={'fit-content'}></Button>
         </div>
       </nav>
     </div>
@@ -18,9 +19,7 @@ function Navbar() {
 
 const styles = {
     logo: {
-        textTransform: 'uppercase',
-        letterSpacing: 5,
-        color: Colors.ACCENT
+        height: 50,
       },
     
       navContainer: {
@@ -36,7 +35,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 20,
+        padding: 30,
         margin: '0 20px',
       },
 
