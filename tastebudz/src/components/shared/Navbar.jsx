@@ -9,8 +9,9 @@ function Navbar() {
       <nav style={styles.navbar}>
         <img style={styles.logo} src={TastebudzNavLogo}/>
         <div style={styles.buttonContainer}>
+            <Button buttonText={'Features'} buttonSize={'fit-content'}></Button>
             <Button buttonText={'Login'} buttonSize={'fit-content'}></Button>
-            <Button buttonText={'Sign Up'} buttonSize={'fit-content'}></Button>
+            
         </div>
       </nav>
     </div>
@@ -23,7 +24,7 @@ const styles = {
       },
     
       navContainer: {
-        position: 'absolute',
+        // position: 'absolute',
         top: 0,
         width: '100%',
         textAlign: 'center',

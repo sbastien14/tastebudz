@@ -12,6 +12,7 @@ function Button({buttonText, buttonStyle, buttonWidth, buttonHeight, buttonActio
         letterSpacing: 2,
         fontWeight: 'bold',
         backgroundColor: Colors.PRIMARY,
+        cursor: 'pointer',
         color: 'white',
         border:  `solid 3px ${Colors.PRIMARY}`,
         borderRadius: 3,

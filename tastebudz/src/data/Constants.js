@@ -1,7 +1,8 @@
 const Colors = {
     "PRIMARY": "#7b2cbf",
     "SECONDARY": "#ffd60a",
-    'ACCENT': "#ff5d8f",
+    "ACCENT": "#ff5d8f",
+    "SHADOW_GRAY": "#DEE2E6"
 }
 
 const Dimensions = {
