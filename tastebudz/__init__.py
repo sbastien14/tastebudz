@@ -23,12 +23,12 @@ def create_app(test_config=None):
     from . import sb
     sb.init_app(app)
     
-    from . import gmaps
-    gmaps.init_app(app)
+    # from . import gmaps
+    # gmaps.init_app(app)
     
-    from . import restaurant
-    app.register_blueprint(restaurant.bp)
-    app.add_url_rule('/', endpoint='index')
+    # from . import restaurant
+    # app.register_blueprint(restaurant.bp)
+    # app.add_url_rule('/', endpoint='index')
     
     return app
     
