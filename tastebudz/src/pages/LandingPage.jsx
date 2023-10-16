@@ -32,7 +32,7 @@ function LandingPage() {
           <p style={styles.featuresText}> voluptatem qui quasi accusamus voluptas praesentium exercitationem, nostrum sunt est, doloremque architecto consectetur non! Neque ea numquam accusamus dolorem dolores libero reiciendis.</p>
         </div>
     </div>
-    <div style={styles.authSection}>
+    <div style={styles.authForm}>
 
     </div>
   </div>
@@ -48,7 +48,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // fontSize: Dimensions.LARGE,
     width: '100%',
     height: '100vh',
     flexDirection: 'column',

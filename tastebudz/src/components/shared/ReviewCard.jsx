@@ -1,6 +1,7 @@
 import React from 'react'
 import {PiStarFill, PiStarHalfFill} from 'react-icons/pi'
-import { Colors, Dimensions } from '../../data/Constants'
+import { Colors } from '../../data/Constants'
+import ProfilePicture from '../../assets/testProfilePicture.jpeg'
 
 function ReviewCard() {
   return (
@@ -15,8 +16,7 @@ function ReviewCard() {
             </div>
             <p style={styles.review}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, sint nemo eveniet ipsum veritatis hic consectetur commodi consequuntur dolore quam quas adipisci. Aspernatur vitae facilis voluptatum nihil ea libero. Labore.</p>
             <div style={styles.reviewerTag}>
-                {/* <img style={styles.reviewerImg} alt='Reviewer'></img> */}
-                <PiStarFill style={styles.reviewerImg} size={30}/>
+                <img src={ProfilePicture} style={styles.reviewerImg}  alt='Reviewer'/>
                 <div style={styles.reviewerID}>
                     <h3>John Doe</h3>
                     <p>Jan. 4th 2017</p>
@@ -37,7 +37,7 @@ const styles = {
         textTransform: 'uppercase',
         // color: Colors.ACCENT,
         fontSize: 20,
-        padding: 30,
+        padding: '2rem',
         borderRadius: 10,
         filter: `drop-shadow(-5px 5px ${Colors.SHADOW_GRAY})`,
         
@@ -60,7 +60,11 @@ const styles = {
     },
 
     reviewerImg: {
-        marginRight: 20
+        marginRight: 20,
+        width: 65,
+        height: 65, 
+        borderRadius: '100%', 
+        objectFit: 'cover'        
     }
 
 

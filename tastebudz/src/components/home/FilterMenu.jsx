@@ -5,39 +5,48 @@ function FilterMenu() {
   return (
     <div style={styles.filters}>
         <div style={styles.filterContainer}>
-            <h3 style={styles.filterHeader}>Filter</h3>
-            <div style={styles.filterOptionsContainer}>
-                {/* <label style={styles.filterOption}>
-                    <input type="checkbox"  style={styles.filterCheckbox}/>
-                    Italian
-                </label>
-                <label style={styles.filterOption}>
-                    <input type="checkbox" style={styles.filterCheckbox}/>
-                    Mexican
-                </label>
-                <label style={styles.filterOption}>
-                    <input type="checkbox" style={styles.filterCheckbox}/>
-                    Chinese
-                </label>
-                <label style={styles.filterOption}>
-                    <input type="checkbox" style={styles.filterCheckbox}/>
-                    Ethopian
-                </label>
-                <label style={styles.filterOption}>
-                    <input type="checkbox" style={styles.filterCheckbox}/>
-                    Asian Fusion
-                </label>
-                <label style={styles.filterOption}>
-                    <input type="checkbox" style={styles.filterCheckbox}/>
-                    Steakhouse
-                </label> */}
-                <button style={styles.filterOption}>Italian</button>
-                <button style={styles.filterOption}>Mexican</button>
-                <button style={styles.filterOption}>Ethopian</button>
-                <button style={styles.filterOption}>Chinese</button>
-                <button style={styles.filterOption}>Thai</button>
-                <button style={styles.filterOption}>Steakhouse</button>
+            <div>
+                <h3 style={styles.filterHeader}>Cuisine</h3>
+                <div style={styles.filterOptionsContainer}>
+                    {/* <label style={styles.filterOption}>
+                        <input type="checkbox"  style={styles.filterCheckbox}/>
+                        Italian
+                    </label>
+                    <label style={styles.filterOption}>
+                        <input type="checkbox" style={styles.filterCheckbox}/>
+                        Mexican
+                    </label>
+                    <label style={styles.filterOption}>
+                        <input type="checkbox" style={styles.filterCheckbox}/>
+                        Chinese
+                    </label>
+                    <label style={styles.filterOption}>
+                        <input type="checkbox" style={styles.filterCheckbox}/>
+                        Ethopian
+                    </label>
+                    <label style={styles.filterOption}>
+                        <input type="checkbox" style={styles.filterCheckbox}/>
+                        Asian Fusion
+                    </label>
+                    <label style={styles.filterOption}>
+                        <input type="checkbox" style={styles.filterCheckbox}/>
+                        Steakhouse
+                    </label> */}
+                    <button style={styles.filterOption}>Italian</button>
+                    <button style={styles.filterOption}>Mexican</button>
+                    <button style={styles.filterOption}>Ethopian</button>
+                    <button style={styles.filterOption}>Chinese</button>
+                    <button style={styles.filterOption}>Thai</button>
+                    <button style={styles.filterOption}>Steakhouse</button>
+                </div>
+                <div>
+                    <h3 style={styles.filterHeader}>Distance</h3>
+                    <label style={styles.distanceLabel} for="distance">5 mi</label>
+                    <input style={styles.distance} type='range' name='distance' min={5} max={50}></input>
+                    <label for="distance">50 mi</label>
+                </div>
             </div>
+           
         </div>
     </div>
   )
@@ -91,8 +100,16 @@ const styles = {
         backgroundColor: 'white',
         color: Colors.PRIMARY,
         cursor: 'pointer'
-        
+    },
 
+    distanceLabel: {
+        marginRight: 20
+    },
+
+    distance: {
+        width: '25rem',
+        background: Colors.PRIMARY,
+        marginRight: 20
     },
 
     filterCheckbox: {
