@@ -1,13 +1,19 @@
-import React from 'react'
-import Button from './Button'
-import { Colors } from '../../data/Constants'
-import TastebudzNavLogo from '../../assets/tastebudz-logo.png'
+import React from 'react';
+import Button from './Button';
+import { Colors } from '../../data/Constants';
+import TastebudzNavLogo from '../../assets/tastebudz-logo.png';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar({auth}) {
+  const navigate = useNavigate();
+
+  function handleLoginClick() {
+    navigate('/login');
+  }
+
   return (
     <div>
-    {
-      auth ? 
+      {auth ? (
         <div style={styles.navContainer}>
           <nav style={styles.navbar}>
             <img style={styles.logo} src={TastebudzNavLogo} alt='Navbar Logo'/>
@@ -17,21 +23,26 @@ function Navbar({auth}) {
             </div>
           </nav>
         </div>
-      :
-      <div style={styles.navContainer}>
-        <nav style={styles.navbar}>
-          <img style={styles.logo} src={TastebudzNavLogo} alt='Navbar Logo'/>
-          <div style={styles.buttonContainer}>
-              <Button buttonText={'Features'} buttonSize={'fit-content'}></Button>
-              <Button buttonText={'Login'} buttonSize={'fit-content'}></Button>
-          </div>
-        </nav>
-      </div>
-      }
-      </div>
-   
-  )
+      ) : (
+        <div style={styles.navContainer}>
+          <nav style={styles.navbar}>
+            <img style={styles.logo} src={TastebudzNavLogo} alt='Navbar Logo'/>
+            <div style={styles.buttonContainer}>
+                <Button buttonText={'Features'} buttonSize={'fit-content'}></Button>
+                <Button 
+                    buttonText={'Login'} 
+                    buttonSize={'fit-content'} 
+                    onClick={handleLoginClick}
+                ></Button>
+            </div>
+          </nav>
+        </div>
+      )}
+    </div>
+  );
 }
+
+// ... rest of the code (styles and export)
 
 const styles = {
     logo: {

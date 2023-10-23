@@ -1,7 +1,7 @@
 import React from 'react'
 import {Colors} from '../../data/Constants'
 
-function Button({buttonText, buttonStyle, buttonWidth, buttonHeight, buttonAction}) {
+function Button({buttonText, buttonStyle, buttonWidth, buttonHeight, buttonAction, onClick}) {
 
   return (
     <button style={{
@@ -16,7 +16,7 @@ function Button({buttonText, buttonStyle, buttonWidth, buttonHeight, buttonActio
         color: 'white',
         border:  `solid 3px ${Colors.PRIMARY}`,
         borderRadius: 3,
-    }} onClick={buttonAction}>{buttonText}</button>
+    }} onClick={onClick}>{buttonText}</button>
   )
 }
 
