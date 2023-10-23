@@ -9,4 +9,17 @@ __pycache__/
 .ipynb_checkpoints
 
 # Mac
-.DS_Store
+.DS_Store# Visual Studio Code:
+*.code-workspace
+
+# Python Flask Project:
+*.venv
+*.pyc
+__pycache__/
+instance/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
