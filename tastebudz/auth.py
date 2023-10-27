@@ -177,6 +177,7 @@ def logout():
     statusCode = 500
     
     try:
+        oldUser = User(sb.auth.get_user())
         res = sb.auth.sign_out()
     except AuthApiError as error:
         body["message"] = str(error)
@@ -185,19 +186,12 @@ def logout():
         body["message"] = str(error)
         statusCode = 500
     else:
-        try:
-            oldUser:User = g.pop('user')
-            body = {
-                "message": f"Successfully logged out {oldUser.username or oldUser.email}.",
-                "user": oldUser
-            }
-            statusCode = 200
-        except:
-            body = {
-                "message": "Successfully logged out.",
-                "user": {}
-            }
-            statusCode = 200
+        # oldUser:User = g.pop('user')
+        body = {
+            "message": f"Successfully logged out {oldUser.username or oldUser.email}.",
+            "user": oldUser
+        }
+        statusCode = 200
         
     return body, statusCode
 

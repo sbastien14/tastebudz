@@ -19,7 +19,12 @@ paths:
       tags:
         - user
       summary: Register new user account
-      description: This only creates a user account.
+      description:
+        This only creates a user account. It does not
+        create additional profile information.
+        You must provide email and password for the new
+        account as HTTP basic authentication
+        (base-64 encoded username:password in authorization header).
       operationId: tastebudz.auth.register
       parameters:
         - name: authorization
@@ -64,13 +69,13 @@ paths:
     get:
       tags:
         - user
+      summary: Logs user in and creates a new session
       description:
         Logs user into the system. You may provide **email
         and password** as HTTP basic authentication,
         or **oauth_provider** to receive OAuth redirect,
         or **oauth_provider**, **access_token**, and **refresh_token**
         to login with OAuth.
-      summary: Logs user in and creates a new session
       operationId: tastebudz.auth.login
       parameters:
         - name: authorization
