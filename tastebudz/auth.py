@@ -5,136 +5,155 @@ from flask import (
 from gotrue.errors import AuthApiError
 from tastebudz.sb import get_sb
 from tastebudz.models import User
+import json
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-
-# API Response format ("user" field only present in successful account creation):
-# {
-#     "reason": "BRIEF_DESCRIPTION",
-#     "message": "Long description for displaying if needed.",
-#     "user": {
-#         "id": "2fh390dfd-34832894hd-834gdfhb",
-#         "email": "email@example.com",
-#         "phone": "555-123-4444",
-#         "role": "authenticated",
-#         "user_metadate": {},
-#     }
-# }
-@bp.route('/user', methods=['POST'])
-def register():
-    username = request.form['username'] if request.form['username'] is not None else request.body['username']
-    password = request.form['password'] if request.form['password'] is not None else request.body['password']
-    sb = get_sb()
+# @bp.route('/user', methods=['POST'])
+def register(body):
+    requestBody = body
+    email = request.authorization.username
+    password = request.authorization.password
+    username = requestBody.get('username')
+    role = requestBody.get('role', 0)
     
     # Default to an unknown server error:
-    body = {
-        "reason": "INTERNAL_SERVER_ERROR",
-        "message": "An unknown error has occurred."
-    }
-    code = 500
-
-    if not username:
-        body = {
-            "reason": "INVALID_ACCOUNT_INFORMATION",
-            "message": "Username is required but was not provided."
-        }
-    elif not password:
-        body = {
-            "reason": "INVALID_ACCOUNT_INFORMATION",
-            "message": "Password is required but was not provided."
-        }
-    else:
+    body = {"message": "An unknown error has occurred."}
+    statusCode = 500
+    sb = get_sb()
+    
+    if email and password:
         try:
+            # Create user account:
             res = sb.auth.sign_up({
-                "email": username,
-                "password": password
+                "email": email,
+                "password": password,
+                "options": {
+                    "data": {
+                        "username": username,
+                        "role": role
+                    }
+                }
             })
+            print(res.user)
+        except AuthApiError as error:
+            body["message"] = str(error)
+            statusCode = 502
         except Exception as error:
             body["message"] = str(error)
+            statusCode = 500
         else:
             g.user = User(res.user)
-            code = 201 # Successfully registered user
-            # Check for email verification:
+            # Awaiting email verification:
             if res.session is None:
-                body = {
-                    "reason": "EMAIL_ADDRESS_NOT_CONFIRMED",
-                    "message": f"A verification email was sent to {username}. Please click the link in that email to verify you account.",
-                    "user": g.user
-                }
+                body['message'] = 'Account created; awaiting email verification.'
+                body['user'] = g.user
+                statusCode = 202
+            # User account created successfully:
             else:
-                body = {
-                    "reason": "ACCOUNT_CREATION_SUCCESSFUL",
-                    "message": f"{username} was successfully registered.",
-                    "user": g.user
-                }
-            
-    return make_response(body, code)
+                body['message'] = 'Account created successfully.'
+                body['user'] = g.user
+                statusCode = 201
+    elif not email:
+        body = {"message": "Email is required but was not provided."}
+        statusCode = 400
+    elif not password:
+        body = {"message": "Password is required but was not provided."}
+        statusCode = 400
+    else:
+        # Did not receive valid form data:
+        body = {"message": "Invalid form data submitted."}
+        statusCode = 400
+                
+    return body, statusCode
             
 
-# API Response format ("user" field only present in successful login):
-# {
-#     "reason": "BRIEF_DESCRIPTION",
-#     "message": "Long description for displaying if needed.",
-#     "user": {
-#         "id": "2fh390dfd-34832894hd-834gdfhb",
-#         "email": "email@example.com",
-#         "phone": "555-123-4444",
-#         "role": "authenticated",
-#         "user_metadate": {},
-#     }
-# }
-@bp.route('/user', methods=['GET'])
-def login():
-    username = request.form['username']
-    password = request.form['password']
+# @bp.route('/user/login', methods=['GET'])
+def login(oauth_provider:str=None, access_token:str=None, refresh_token:str=None):
+    email = request.authorization.username
+    password = request.authorization.password
     sb = get_sb()
     
     # Default to an unknown server error:
-    body = {
-        "reason": "INTERNAL_SERVER_ERROR",
-        "message": "An unknown error has occurred."
-    }
-    code = 500
+    body = { "message": "An unknown error has occurred." }
+    statusCode = 500
+    headers = {}
     
-    if username is None:
-        body = {
-            "reason": "INVALID_USER_AUTHENTICATION",
-            "message": "Email is required but was not provided."
-        }
-        code = 400
+    # Authenticate with OAuth:
+    if oauth_provider is not None:
+        # OAuth process has returned from provider with access token:
+        if access_token and refresh_token:
+            try:
+                res = sb.auth.set_session(access_token, refresh_token)
+                # if g.profile:
+                #     data, count = sb.table('user_profiles').insert(g.pop('profile')).execute()
+            # Supabase API returned an error:
+            except AuthApiError as error:
+                body['message'] = str(error)
+                statusCode = 502
+            # There was another error (likely our fault):
+            except Exception as error:
+                # Use default server error:
+                body["message"] = str(error)
+                statusCode = 500
+            # No errors, we're signed in!
+            else:
+                g.user = User(res.user)
+                body = {
+                    "message": f"Successfully signed in {g.user.username}.",
+                    "user": g.user
+                }
+                statusCode = 200
+        # Return redirect URL for OAuth with requested provider:
+        else:
+            try:
+                res = sb.auth.sign_in_with_oauth({
+                    "provider": oauth_provider
+                })
+            # Supabase API returned an error:
+            except AuthApiError as error:
+                body["message"] = str(error)
+                statusCode = 502
+            # There was another error (likely our fault):
+            except Exception as error:
+                # Use default server error:
+                body["message"] = str(error)
+                statusCode = 500
+            else:
+                body["message"] = f"Sign in with {res.provider.capitalize()}"
+                statusCode = 303
+                headers["location"] = res.url
+    elif email is None:
+        body["message"] = "Email is required but was not provided."
+        statusCode = 400
     elif password is None:
-        body = {
-            "reason": "INVALID_USER_AUTHENTICATION",
-            "message": "Password is required but was not provided."
-        }
-        code = 400
+        body["message"] = "Password is required but was not provided."
+        statusCode = 400
     # We have username and password, now let's try logging in:
     else:
         try:
-            res = sb.auth.sign_in_with_password({"email": username, "password": password})
+            res = sb.auth.sign_in_with_password({"email": email, "password": password})
+            # if g.profile:
+            #         data, count = sb.table('user_profiles').insert(g.pop('profile')).execute()
         # The Supabase API returned an error:
         except AuthApiError as error:
-            body = {
-                "reason": "USER_AUTHENTICATION_ERROR",
-                "message": str(error)
-            }
-            code = 500
+            body["message"] = str(error)
+            statusCode = 502
         # There was another error (likely our fault):
         except Exception as error:
             # Use default server error:
             body["message"] = str(error)
+            statusCode = 500
         # No errors, we are signed in:
         else:
             g.user = User(res.user)
             body = {
-                "reason": "USER_AUTHENTICATION_SUCCESSFUL",
-                "message": f"Successfully signed in {username}.",
+                "message": f"Successfully signed in {g.user.username or g.user.email}.",
                 "user": g.user
             }
-            code = 200
+            statusCode = 200
             
-    return make_response(body, code)
+    return body, statusCode, headers
 
 
 # API Response format ("user" field only present in successful logout):
@@ -149,36 +168,38 @@ def login():
 #         "user_metadate": {},
 #     }
 # }
-@bp.route('/logout')
+# @bp.route('/logout')
 def logout():
     sb = get_sb()
     
     # Default to an unknown server error:
-    body = {
-        "reason": "INTERNAL_SERVER_ERROR",
-        "message": "An unknown error has occurred."
-    }
-    code = 500
+    body = { "message": "An unknown error has occurred." }
+    statusCode = 500
     
     try:
         res = sb.auth.sign_out()
     except AuthApiError as error:
-        body = {
-            "reason": "USER_AUTHENTICATION_ERROR",
-            "message": str(error)
-        }
+        body["message"] = str(error)
+        statusCode = 502
     except Exception as error:
         body["message"] = str(error)
+        statusCode = 500
     else:
-        oldUser = g.pop('user')
-        body = {
-            "reason": "LOGOUT_SUCCESSFUL",
-            "message": f"Successfully logged out {oldUser.email}.",
-            "user": oldUser
-        }
-        code = 200
+        try:
+            oldUser:User = g.pop('user')
+            body = {
+                "message": f"Successfully logged out {oldUser.username or oldUser.email}.",
+                "user": oldUser
+            }
+            statusCode = 200
+        except:
+            body = {
+                "message": "Successfully logged out.",
+                "user": {}
+            }
+            statusCode = 200
         
-    return make_response(body, code)
+    return body, statusCode
 
 
 @bp.before_app_request
