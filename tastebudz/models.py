@@ -1,19 +1,40 @@
 from gotrue.types import User as sbUser
-import json
+import json, datetime, time
+from dateutil import parser as dateparser
+from tastebudz.sb import get_sb
 
 class User(dict):
-    def __init__(self, usr:sbUser):
-        # Create standard instance variables:
-        self.id:str = usr.id
-        self.email:str = usr.email
-        self.username:str = usr.user_metadata.get('username')
-        self.phone:str = usr.phone
-        self.role:bool = usr.user_metadata.get('role')
-        self.first_name:str = usr.user_metadata.get('first_name')
-        self.last_name:str = usr.user_metadata.get('last_name')
-        self.dob:str = usr.user_metadata.get('dob')
-        # self.user_metadata:dict = usr.user_metadata
-        # self.obj = usr
+    def __init__(self, usr):
+        if type(usr) == sbUser:
+            # Create standard instance variables:
+            self.id:str = usr.id
+            self.email:str = usr.email
+            self.username:str = usr.user_metadata.get('username')
+            self.phone:str = usr.phone
+            self.role:bool = usr.user_metadata.get('role', 0)
+            self.first_name:str = ""
+            self.last_name:str = ""
+            self.dob:datetime.date = None
+            self.friends = []
+            
+            # Try to fetch profile data:
+            try:
+                self.getProfile()
+            except Exception as error:
+                print(f"{type(error)}: {str(error)}")
+        elif type(usr) == dict:
+            # Create standard instance variables:
+            self.id:str = usr.get('id')
+            self.email:str = usr.get('email')
+            self.username:str = usr.get('username')
+            self.phone:str = usr.get('phone')
+            self.role:bool = usr.get('role', 0)
+            self.first_name = usr.get('first_name')
+            self.last_name = usr.get('last_name')
+            self.dob = usr.get('dob')
+            self.friends = usr.get('friends')
+        else:
+            raise Exception("Unexpected type.")
         
         # Create instance of dictionary representation:
         self._dict = {
@@ -24,10 +45,163 @@ class User(dict):
             "role": self.role,
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "dob": self.dob
+            "dob": self.dob.isoformat() if self.dob is not None else "",
+            "friends": self.friends
         }
-        
         dict.__init__(self, self._dict)
+        
+    # def createAccount(self, password:str) -> None:
+    #     sb = get_sb()
+    #     res = sb.auth.sign_up({
+    #             "email": self.email,
+    #             "password": password,
+    #             "options": {
+    #                 "data": {
+    #                     "username": self.username,
+    #                     "role": self.role
+    #                 }
+    #             }
+    #         })
+        
+    #     # Check for email verification:
+    #     if res.session is None:
+    #         raise EmailUnverified("User account created; awaiting email verification.")
+    
+    # def loginPassword(self, password:str) -> None:
+    #     sb = get_sb()
+    #     res = sb.auth.sign_in_with_password({"email": self.email, "password": password})
+        
+    # def getOAuthURL(self, oauth_provider:str) -> str:
+    #     sb = get_sb()
+    #     res = sb.auth.sign_in_with_oauth({ "provider": oauth_provider })
+    #     return res.url
+
+    # def loginOAuth(self, access_token:str, refresh_token:str) -> None:
+    #     sb = get_sb()
+    #     res = sb.auth.set_session(access_token, refresh_token)
+          
+    # def logout(self) -> None:
+    #     sb = get_sb()
+    #     sb.auth.sign_out()
+    
+    def getProfile(self) -> None:
+        sb = get_sb()
+        
+        # Fetch user profile data from the server.
+        try:
+            res = sb.table('user_profiles').select('*').eq('username', self.username).execute()
+        except:
+            res = sb.table('user_profiles').select('*').eq('id', self.id).execute()
+        
+        if res.data is None or len(res.data) == 0:
+            raise SupabaseException("Profile data not found.")
+        else:
+            profile = res.data[0]
+        
+        # Update instance data:
+        self.first_name = profile.get('first_name')
+        self.last_name = profile.get('last_name')
+        self.dob = dateparser.parse(profile.get('dob')).date()
+        self.friends = profile.get('friends')
+        
+        # Update internal dictionary:
+        self._dict = {
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "phone": self.phone,
+            "role": self.role,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "dob": self.dob.isoformat(),
+            "friends": self.friends
+        }
+    
+    def createProfile(self, properties:dict={}) -> None:
+        sb = get_sb()
+        
+        # Validation and typecasting:
+        if type(properties.get('first_name', "")) is not str:
+            raise TypeError("'first_name' must be a string.")
+        if type(properties.get('last_name', "")) is not str:
+            raise TypeError("'last_name' must be a string.")
+        if type(properties.get('dob', "")) is not str:
+            raise TypeError("'dob' must be a string.")
+        else:
+            try:
+                dobObj = dateparser.parse(properties.get('dob')).date()
+            except dateparser.ParserError as error:
+                raise TypeError("'dob' must be a valid date.")
+        if type(properties.get('friends', [])) is not list:
+            raise TypeError("'dob' must be an array of strings.")
+        
+        # Insert row and create user profile:
+        data, count = sb.table('user_profiles').insert({
+            "id": self.id,
+            "username": self.username,
+            "first_name": properties.get('first_name') or self.first_name,
+            "last_name": properties.get('last_name') or self.last_name,
+            "dob": dobObj.isoformat() or self.dob.isoformat(),
+            "friends": self.friends
+        }).execute()
+        
+        if data is None:
+            raise SupabaseException("Error creating profile.")
+        else:
+            self.getProfile()
+        
+    def updateProfile(self, properties:dict={}) -> None:
+        sb = get_sb()
+        
+        # Validation and typecasting:
+        if type(properties.get('first_name', "")) is not str:
+            raise TypeError("'first_name' must be a string.")
+        if type(properties.get('last_name', "")) is not str:
+            raise TypeError("'last_name' must be a string.")
+        if type(properties.get('dob', "")) is not str:
+            raise TypeError("'dob' must be a string.")
+        else:
+            try:
+                dobObj = dateparser.parse(properties.get('dob')).date()
+            except dateparser.ParserError as error:
+                raise TypeError("'dob' must be a valid date.")
+        if type(properties.get('friends', [])) is not list:
+            raise TypeError("'dob' must be an array of strings.")
+        
+        # Update user profile database:
+        data, count = sb.table('user_profiles').update({
+            "first_name": properties.get('first_name') or self.first_name,
+            "last_name": properties.get('last_name') or self.last_name,
+            "dob": dobObj.isoformat() or self.dob,
+            "friends": properties.get('friends') or self.friends
+        }).eq('id', self.id).execute()
+        
+        if data is None and properties:
+            raise SupabaseException("Error updating profile.")
+        else:
+            self.getProfile()
         
     def __repr__(self):
         return json.dumps(self._dict, indent=2)
+    
+class SupabaseException(Exception):
+    """Raised when there is an error in a call to the Supabase API."""
+    pass
+
+class ClientSideError(Exception):
+    """Raised when there is an expected client side error."""
+    pass
+
+class ServerSideError(Exception):
+    """Raised when there is an expected server side error."""
+    pass
+
+class Redirect(Exception):
+    """Raised when there is an exception that can be solved with a redirect."""
+    def __init__(self, message:str, uri:str):
+        self.uri = uri
+        super(Redirect, self).__init__(message)
+
+class EmailUnverified(Exception):
+    """Raised when user account is created but email is not verified."""
+    pass

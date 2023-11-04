@@ -1,14 +1,23 @@
 from functools import wraps
 from flask import (
-    Blueprint, flash, g, redirect, make_response, request, url_for
+    Blueprint, flash, g, redirect, make_response, request, url_for, session
 )
-from gotrue.errors import AuthApiError
+from gotrue.errors import AuthApiError, AuthSessionMissingError
 from tastebudz.sb import get_sb
 from tastebudz.models import User
-import json
+import json, time
+from connexion import context as ccontext
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+def login_required(view):
+    @wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return { "message": "You must be logged in to do this." }, 401          
+        return view(**kwargs)
+    return wrapped_view
+            
 # @bp.route('/user', methods=['POST'])
 def register(body):
     requestBody = body
@@ -35,7 +44,7 @@ def register(body):
                     }
                 }
             })
-            print(res.user)
+            print(res)
         except AuthApiError as error:
             body["message"] = str(error)
             statusCode = 502
@@ -43,14 +52,15 @@ def register(body):
             body["message"] = str(error)
             statusCode = 500
         else:
-            g.user = User(res.user)
             # Awaiting email verification:
             if res.session is None:
                 body['message'] = 'Account created; awaiting email verification.'
-                body['user'] = g.user
+                body['user'] = User(res.user)
                 statusCode = 202
             # User account created successfully:
             else:
+                g.user = User(res.user)
+                
                 body['message'] = 'Account created successfully.'
                 body['user'] = g.user
                 statusCode = 201
@@ -69,9 +79,7 @@ def register(body):
             
 
 # @bp.route('/user/login', methods=['GET'])
-def login(oauth_provider:str=None, access_token:str=None, refresh_token:str=None):
-    email = request.authorization.username
-    password = request.authorization.password
+def login(oauth_provider:str=None, access_token:str=None, refresh_token:str=None, **kwargs):
     sb = get_sb()
     
     # Default to an unknown server error:
@@ -79,63 +87,69 @@ def login(oauth_provider:str=None, access_token:str=None, refresh_token:str=None
     statusCode = 500
     headers = {}
     
-    # Authenticate with OAuth:
-    if oauth_provider is not None:
-        # OAuth process has returned from provider with access token:
-        if access_token and refresh_token:
+    if request.authorization is not None:
+        # Get email and password from HTTP basic auth:
+        email = request.authorization.username
+        password = request.authorization.password
+        if email is None:
+            body["message"] = "Email is required but was not provided."
+            statusCode = 400
+        elif password is None:
+            body["message"] = "Password is required but was not provided."
+            statusCode = 400
+        else:
             try:
-                res = sb.auth.set_session(access_token, refresh_token)
-                # if g.profile:
-                #     data, count = sb.table('user_profiles').insert(g.pop('profile')).execute()
-            # Supabase API returned an error:
+                res = sb.auth.sign_in_with_password({"email": email, "password": password})
+            # The Supabase API returned an error:
             except AuthApiError as error:
-                body['message'] = str(error)
+                body["message"] = str(error)
                 statusCode = 502
             # There was another error (likely our fault):
             except Exception as error:
                 # Use default server error:
                 body["message"] = str(error)
                 statusCode = 500
-            # No errors, we're signed in!
+            # No errors, we are signed in:
             else:
                 g.user = User(res.user)
+
                 body = {
-                    "message": f"Successfully signed in {g.user.username}.",
+                    "message": f"Successfully signed in {g.user.username or g.user.email}.",
                     "user": g.user
                 }
                 statusCode = 200
-        # Return redirect URL for OAuth with requested provider:
-        else:
-            try:
-                res = sb.auth.sign_in_with_oauth({
-                    "provider": oauth_provider
-                })
-            # Supabase API returned an error:
-            except AuthApiError as error:
-                body["message"] = str(error)
-                statusCode = 502
-            # There was another error (likely our fault):
-            except Exception as error:
-                # Use default server error:
-                body["message"] = str(error)
-                statusCode = 500
-            else:
-                body["message"] = f"Sign in with {res.provider.capitalize()}"
-                statusCode = 303
-                headers["location"] = res.url
-    elif email is None:
-        body["message"] = "Email is required but was not provided."
-        statusCode = 400
-    elif password is None:
-        body["message"] = "Password is required but was not provided."
-        statusCode = 400
-    # We have username and password, now let's try logging in:
-    else:
+    # OAuth process has returned from provider with access token:
+    elif access_token and refresh_token:
         try:
-            res = sb.auth.sign_in_with_password({"email": email, "password": password})
-            # if g.profile:
-            #         data, count = sb.table('user_profiles').insert(g.pop('profile')).execute()
-        # The Supabase API returned an error:
+            res = sb.auth.set_session(access_token, refresh_token)
+        # Supabase API returned an error:
+        except AuthApiError as error:
+            body['message'] = str(error)
+            statusCode = 502
+        # There was another error (likely our fault):
+        except Exception as error:
+            # Use default server error:
+            body["message"] = str(error)
+            statusCode = 500
+        # No errors, we're signed in!
+        else:
+            g.user = User(res.user)
+
+            body = {
+                "message": f"Successfully signed in {g.user.username or g.user.email}.",
+                "user": g.user
+            }
+            statusCode = 200
+    # Return redirect URL for OAuth with requested provider:
+    elif oauth_provider is not None:
+        try:
+            res = sb.auth.sign_in_with_oauth({
+                "provider": oauth_provider,
+                "options": {
+                    "redirect_to": "http://localhost:5000/auth/user/login"
+                }
+            })
+        # Supabase API returned an error:
         except AuthApiError as error:
             body["message"] = str(error)
             statusCode = 502
@@ -144,30 +158,16 @@ def login(oauth_provider:str=None, access_token:str=None, refresh_token:str=None
             # Use default server error:
             body["message"] = str(error)
             statusCode = 500
-        # No errors, we are signed in:
         else:
-            g.user = User(res.user)
-            body = {
-                "message": f"Successfully signed in {g.user.username or g.user.email}.",
-                "user": g.user
-            }
-            statusCode = 200
-            
+            body["message"] = f"Sign in with {res.provider.capitalize()}"
+            statusCode = 303
+            headers["location"] = res.url
+    else:
+        body = { "message": "Unknown client error; please make sure the required parameters were provided." }
+        statusCode = 400
+          
     return body, statusCode, headers
 
-
-# API Response format ("user" field only present in successful logout):
-# {
-#     "reason": "BRIEF_DESCRIPTION",
-#     "message": "Long description for displaying if needed.",
-#     "user": {
-#         "id": "2fh390dfd-34832894hd-834gdfhb",
-#         "email": "email@example.com",
-#         "phone": "555-123-4444",
-#         "role": "authenticated",
-#         "user_metadate": {},
-#     }
-# }
 # @bp.route('/logout')
 def logout():
     sb = get_sb()
@@ -177,7 +177,6 @@ def logout():
     statusCode = 500
     
     try:
-        oldUser = User(sb.auth.get_user())
         res = sb.auth.sign_out()
     except AuthApiError as error:
         body["message"] = str(error)
@@ -186,33 +185,79 @@ def logout():
         body["message"] = str(error)
         statusCode = 500
     else:
-        # oldUser:User = g.pop('user')
         body = {
-            "message": f"Successfully logged out {oldUser.username or oldUser.email}.",
-            "user": oldUser
+            "message": f"Successfully logged out {g.user.username or g.user.email}.",
+            "user": g.user
         }
         statusCode = 200
         
     return body, statusCode
 
+@login_required
+def getUserProfile(username:str):
+    sb = get_sb()
+    
+    try:
+        g.user.getProfile()
+    except Exception as error:
+        body = { "message": f"{type(error)}: {str(error)}" }
+        statusCode = 500
+    else:
+        body = {
+            "message": f"Successfully retrieved user profile for {g.user.username or g.user.email}.",
+            "user": g.user
+        }
+        statusCode = 200
+        
+    return body, statusCode
+
+@login_required
+def createUserProfile(username:str, body):
+    sb = get_sb()
+    requestBody = body
+    
+    try:
+        g.user.createProfile(requestBody)
+    except Exception as error:
+        body = { "message": f"{type(error)}: {str(error)}" }
+        statusCode = 500
+    else:
+        body = {
+            "message": f"Created user profile for {g.user.username or g.user.email}.",
+            "user": g.user
+        }
+        statusCode = 201
+        
+    return body, statusCode
+
+@login_required
+def updateUserProfile(username:str, body):
+    sb = get_sb()
+    requestBody = body
+    print(requestBody)
+    
+    try:
+        g.user.updateProfile(requestBody)
+        # g.user.updateProfile(requestBody)
+    except Exception as error:
+        body = { "message": f"{type(error)}: {str(error)}" }
+        statusCode = 500
+    else:
+        body = {
+            "message": f"Successfully updated user profile for {g.user.username or g.user.email}",
+            "user": g.user
+        }
+        statusCode = 200
+        
+    return body, statusCode
+    
 
 @bp.before_app_request
 def load_logged_in_user():
     sb = get_sb()
-    try:
-        res = sb.auth.get_user()
+    res = sb.auth.get_user()
+    if res is not None:
         g.user = User(res.user)
-    except:
+    else:
         g.user = None
-
-
-def login_required(view):
-    @wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            flash("You must be logged in to see this page.")
-            return redirect(url_for('auth.login'))
-
-        return view(**kwargs)
-
-    return wrapped_view
+    

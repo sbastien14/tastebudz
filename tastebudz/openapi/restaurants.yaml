@@ -1,0 +1,192 @@
+openapi: 3.0.3
+info:
+  version: 1.0.1
+  title: Tastebudz Restaurant API
+  description: Handle recommendations backend for Tastebuds
+servers:
+  - url: http://localhost:5000/restaurant
+tags:
+  - name: restaurant
+    description: Operations on a restaurant
+  - name: user
+    description: Operations that apply to a specific user
+
+paths:
+  /{restaurantId}:
+    parameters:
+      - name: restaurantId
+        description: The UUID for the restaurant
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Retrieve information about a specific restaurant
+      description:
+        Retrieves information needed to display a restauarant in the
+        app.
+      tags:
+        - restaurant
+      operationId: tastebudz.restaurant.getRestaurant
+      responses:
+        200:
+          description: Successfully retrieved restaurant info.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+        default:
+          $ref: '#/components/responses/Message'
+  /{restaurantId}/swipe:
+    parameters:
+    - name: restaurantId
+      description: The UUID for the restaurant
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Log a swipe on a specific restaurant
+      description:
+        Log a swipe on a particular restaurant for the user that
+        is currently logged in. Will return an error if no user is
+        logged in.
+      tags:
+        - user
+        - restaurant
+      operationId: tastebudz.restaurant.swipe
+      responses:
+        default:
+          $ref: '#/components/responses/Message'
+  /recommendation:
+    get:
+      summary: Get a restaurant recommendation
+      description:
+        Retrieve restaurant recommendation for the currently logged-in
+        user. Will return an error if no user is logged in.
+      tags:
+        - user
+        - restaurant
+      operationId: tastebudz.restaurant.getRec
+      responses:
+        200:
+          description: Successfully retrieved a restaurant recommendation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+        default:
+          $ref: '#/components/responses/Message'
+
+components:
+  schemas:
+    Restaurant:
+      description: Information about a restaurant
+      type: object
+      required:
+        - id
+        - name
+        - address
+      properties:
+        id:
+          type: string
+          description: UUID of restaurant (Yelp)
+        name:
+          type: string
+          description: Name of restaurant
+        address:
+          type: string
+          description: Address of restaurant
+        phone:
+          type: string
+          description: Phone number of restaurant
+        tags:
+          type: array
+          items:
+            description: tag
+            type: string
+        googlemaps:
+          type: string
+          description: Google Maps URL to restaurant (for embed)
+  responses:
+    Message:
+      description: Server responds with a message in JSON format.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: describes the event
+      
+#   /spacecrafts/{spacecraftId}:
+#     parameters:
+#       - name: spacecraftId
+#         description: The unique identifier of the spacecraft
+#         in: path
+#         required: true
+#         schema:
+#           $ref: '#/components/schemas/SpacecraftId'
+#     get:
+#       summary: Read a spacecraft
+#       responses:
+#         '200':
+#           description: The spacecraft corresponding to the provided `spacecraftId`
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/Spacecraft'
+#         404:
+#           description: No spacecraft found for the provided `spacecraftId`
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/Error'
+#         500:
+#           description: Unexpected error
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/Error'
+# components:
+#   schemas:
+#     SpacecraftId:
+#       description: The unique identifier of a spacecraft
+#       type: string
+#     Spacecraft:
+#       type: object
+#       required:
+#         - id
+#         - name
+#         - type
+#       properties:
+#         id:
+#           $ref: '#/components/schemas/SpacecraftId'
+#         name:
+#           type: string
+#         type:
+#           type: string
+#           enum:
+#             - capsule
+#             - probe
+#             - satellite
+#             - spaceplane
+#             - station
+#         description:
+#           type: string
+#     Error:
+#       type: object
+#       required:
+#         - message
+#       properties:
+#         message:
+#           description: A human readable error message
+#           type: string
+#   securitySchemes:
+#     ApiKey:
+#       type: apiKey
+#       in: header
+#       name: X-Api-Key
+# security:
+#   - ApiKey: []

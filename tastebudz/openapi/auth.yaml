@@ -142,80 +142,116 @@ paths:
           $ref: '#/components/responses/UnknownServerError'
         default:
           $ref: '#/components/responses/UnknownServerError'
-  # /user/{username}:
-  #   get:
-  #     tags:
-  #       - user
-  #     summary: Get user profile
-  #     description: Ger user profile by username
-  #     operationId: getUserProfile
-  #     parameters:
-  #       - name: username
-  #         in: path
-  #         description: 'The name that needs to be fetched. Use testUser1 for testing. '
-  #         required: true
-  #         schema:
-  #           type: string
-  #     responses:
-  #       '200':
-  #         description: successful operation
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/User'          
-  #           application/xml:
-  #             schema:
-  #               $ref: '#/components/schemas/User'
-  #       '400':
-  #         description: Invalid username supplied
-  #         content:
-  #           application/json:
-  #               schema:
-  #                 $ref: '#/components/schemas/Message'
-  #       '404':
-  #         $ref: '#/components/responses/NotFoundError'
-  #       '502':
-  #         $ref: '#/components/responses/UpstreamApiError'
-  #       default:
-  #         $ref: '#/components/responses/UnknownServerError'
-  #   put:
-  #     tags:
-  #       - user
-  #     summary: Update user
-  #     description: This can only be done by the logged in user.
-  #     operationId: updateUser
-  #     parameters:
-  #       - name: username
-  #         in: path
-  #         description: username of current user to be modified
-  #         required: true
-  #         schema:
-  #           type: string
-  #     requestBody:
-  #       description: Update an existing user
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/User'
-  #     responses:
-  #       '200':
-  #         description: successful operation
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/User'          
-  #       '400':
-  #         description: Invalid username supplied
-  #         content:
-  #           application/json:
-  #               schema:
-  #                 $ref: '#/components/schemas/Message'
-  #       '404':
-  #         $ref: '#/components/responses/NotFoundError'
-  #       '502':
-  #         $ref: '#/components/responses/UpstreamApiError'
-  #       default:
-  #         $ref: '#/components/responses/UnknownServerError'
+  /user/{username}:
+    post:
+      tags:
+        - user
+      summary: Create user profile.
+      description:
+        Populate user profile for an existing account.
+        \**You must be logged-in to do this.**
+      operationId: tastebudz.auth.createUserProfile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Message'
+                  - $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid username supplied
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Message'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '502':
+          $ref: '#/components/responses/UpstreamApiError'
+        default:
+          $ref: '#/components/responses/UnknownServerError'
+    get:
+      tags:
+        - user
+      summary: Get user profile
+      description: Get user profile by username
+      operationId: tastebudz.auth.getUserProfile
+      parameters:
+        - name: username
+          in: path
+          description: 'The name that needs to be fetched. Use testUser1 for testing. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Message'
+                  - $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid username supplied
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Message'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '502':
+          $ref: '#/components/responses/UpstreamApiError'
+        default:
+          $ref: '#/components/responses/UnknownServerError'
+    put:
+      tags:
+        - user
+      summary: Update user
+      description: This can only be done by the logged in user.
+      operationId: tastebudz.auth.updateUserProfile
+      parameters:
+        - name: username
+          in: path
+          description: username of current user to be modified
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existing user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Message'
+                  - $ref: '#/components/schemas/User'         
+        '400':
+          description: Invalid username supplied
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Message'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '502':
+          $ref: '#/components/responses/UpstreamApiError'
+        default:
+          $ref: '#/components/responses/UnknownServerError'
   #   delete:
   #     tags:
   #       - user
@@ -282,6 +318,11 @@ components:
           maximum: 1
           example: 0
           description: 0 is used to represent customer or "bud", and 1 to represent restaurant owner.
+        friends:
+          type: array
+          items:
+            type: string
+            description: UUID for each friend
       xml:
         name: user
     Account:

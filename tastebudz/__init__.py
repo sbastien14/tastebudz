@@ -9,6 +9,7 @@ def create_app(test_config=None):
     app = FlaskApp(__name__, specification_dir='openapi/')
     # app.add_api('auth.yaml', base_path='/auth', strict_validation=True)
     app.add_api('auth.yaml', base_path='/auth')
+    # app.add_api('restaurants.yaml')
     
     # Load instance config:
     if test_config is None:
