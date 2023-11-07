@@ -165,6 +165,9 @@ def login(oauth_provider:str=None, access_token:str=None, refresh_token:str=None
     else:
         body = { "message": "Unknown client error; please make sure the required parameters were provided." }
         statusCode = 400
+        
+    #TODO: if login was successful, try generating shortstack'
+    #      of recommendations and add to session.
           
     return body, statusCode, headers
 
@@ -178,6 +181,7 @@ def logout():
     
     try:
         res = sb.auth.sign_out()
+        #TODO: clear shortstack of recs from session
     except AuthApiError as error:
         body["message"] = str(error)
         statusCode = 502
@@ -256,6 +260,8 @@ def updateUserProfile(username:str, body):
 def load_logged_in_user():
     sb = get_sb()
     res = sb.auth.get_user()
+    #TODO: also call some function to check session for recs \
+        # and populate it if we're getting low.
     if res is not None:
         g.user = User(res.user)
     else:

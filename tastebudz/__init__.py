@@ -9,7 +9,7 @@ def create_app(test_config=None):
     app = FlaskApp(__name__, specification_dir='openapi/')
     # app.add_api('auth.yaml', base_path='/auth', strict_validation=True)
     app.add_api('auth.yaml', base_path='/auth')
-    # app.add_api('restaurants.yaml')
+    app.add_api('restaurants.yaml')
     
     # Load instance config:
     if test_config is None:
@@ -29,11 +29,14 @@ def create_app(test_config=None):
     from . import sb
     sb.init_app(app.app)
     
-    # from . import gmaps
-    # gmaps.init_app(app)
+    from . import gmaps
+    gmaps.init_app(app.app)
     
-    # from . import restaurant
-    # app.register_blueprint(restaurant.bp)
+    from . import yelp_api
+    yelp_api.init_app(app.app)
+    
+    from . import restaurant
+    app.app.register_blueprint(restaurant.bp)
     # app.add_url_rule('/', endpoint='index')
     
     return app.app

@@ -45,6 +45,15 @@ paths:
       required: true
       schema:
         type: string
+    - name: direction
+      description: The direction swiped ('left' or 'right')
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+          - left
+          - right
     put:
       summary: Log a swipe on a specific restaurant
       description:
@@ -97,6 +106,12 @@ components:
         address:
           type: string
           description: Address of restaurant
+        latitude:
+          type: string
+          description: Latitude of location
+        longitude:
+          type: string
+          description: Longitude of location
         phone:
           type: string
           description: Phone number of restaurant
@@ -105,9 +120,18 @@ components:
           items:
             description: tag
             type: string
-        googlemaps:
+        googleMapsUrl:
           type: string
           description: Google Maps URL to restaurant (for embed)
+        googleMapsId:
+          type: string
+          description: Google Maps ID for other API operations
+        yelpUrl:
+          type: string
+          description: Yelp URL to restaurant
+        imgUrl:
+          type: string
+          description: URL of restaurant image via Yelp
   responses:
     Message:
       description: Server responds with a message in JSON format.

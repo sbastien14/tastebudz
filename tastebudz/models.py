@@ -1,7 +1,66 @@
 from gotrue.types import User as sbUser
-import json, datetime, time
+import json, datetime, requests, urllib
 from dateutil import parser as dateparser
 from tastebudz.sb import get_sb
+from tastebudz.yelp_api import get_yelp
+from tastebudz.gmaps import get_gmaps
+
+class Restaurant(dict):
+    # Populate object with details from Yelp & Google Maps:
+    def _fetchDetails(self) -> None:
+        y = get_yelp()
+        gmaps = get_gmaps()
+        
+        # Populate data from Yelp:
+        business = y.getBusiness(self.id)
+        self.id = business.get('id', None)
+        self.name = business.get('name')
+        self.address = ",".join(business.get('location').get('display_address'))
+        self.latitude = business.get('coordinates').get('latitude')
+        self.longitude = business.get('coordinates').get('longitude')
+        self.phone = business.get('display_phone')
+        self.tags = business.get('categories')
+        self.yelpUrl = business.get('url')
+        self.imgUrl = business.get('image_url')
+        
+        # Populate data from Google Maps:
+        g_data = gmaps.places(query=self.name, location=(self.latitude, self.longitude))
+        if len(g_data['results']) > 0:
+            place = g_data['results'][0]
+            self.googleMapsId = place.get('place_id')
+            self.googleMapsUrl = f"https://www.google.com/maps/search/?api=1&query={urllib.parse.quote_plus(self.name)}&query_place_id={self.googleMapsId}"
+            
+    
+    def __init__(self, restaurantId:str):
+        self.id:str = restaurantId
+        self.name:str = ""
+        self.address:str = ""
+        self.latitude = ""
+        self.longitude = ""
+        self.phone:str = ""
+        self.tags:list = []
+        self.imgUrl:str = ""
+        self.googleMapsUrl:str = ""
+        self.googleMapsId:str = ""
+        self.yelpUrl:str = ""
+        
+        self._fetchDetails()
+        
+        # Create instance of dictionary representation:
+        self._dict = {
+            "id": self.id,
+            "name": self.name,
+            "address": self.address,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "phone": self.phone,
+            "tags": self.tags,
+            "googleMapsUrl": self.googleMapsUrl,
+            "googleMapsId": self.googleMapsId,
+            "yelpUrl": self.yelpUrl
+        }
+        dict.__init__(self, self._dict)
+
 
 class User(dict):
     def __init__(self, usr):
@@ -16,6 +75,8 @@ class User(dict):
             self.last_name:str = ""
             self.dob:datetime.date = None
             self.friends = []
+            self.left_swipes = []
+            self.right_swipes = []
             
             # Try to fetch profile data:
             try:
@@ -49,40 +110,6 @@ class User(dict):
             "friends": self.friends
         }
         dict.__init__(self, self._dict)
-        
-    # def createAccount(self, password:str) -> None:
-    #     sb = get_sb()
-    #     res = sb.auth.sign_up({
-    #             "email": self.email,
-    #             "password": password,
-    #             "options": {
-    #                 "data": {
-    #                     "username": self.username,
-    #                     "role": self.role
-    #                 }
-    #             }
-    #         })
-        
-    #     # Check for email verification:
-    #     if res.session is None:
-    #         raise EmailUnverified("User account created; awaiting email verification.")
-    
-    # def loginPassword(self, password:str) -> None:
-    #     sb = get_sb()
-    #     res = sb.auth.sign_in_with_password({"email": self.email, "password": password})
-        
-    # def getOAuthURL(self, oauth_provider:str) -> str:
-    #     sb = get_sb()
-    #     res = sb.auth.sign_in_with_oauth({ "provider": oauth_provider })
-    #     return res.url
-
-    # def loginOAuth(self, access_token:str, refresh_token:str) -> None:
-    #     sb = get_sb()
-    #     res = sb.auth.set_session(access_token, refresh_token)
-          
-    # def logout(self) -> None:
-    #     sb = get_sb()
-    #     sb.auth.sign_out()
     
     def getProfile(self) -> None:
         sb = get_sb()
@@ -169,7 +196,7 @@ class User(dict):
             raise TypeError("'dob' must be an array of strings.")
         
         # Update user profile database:
-        data, count = sb.table('user_profiles').update({
+        data = sb.table('user_profiles').update({
             "first_name": properties.get('first_name') or self.first_name,
             "last_name": properties.get('last_name') or self.last_name,
             "dob": dobObj.isoformat() or self.dob,
@@ -180,9 +207,65 @@ class User(dict):
             raise SupabaseException("Error updating profile.")
         else:
             self.getProfile()
+            
+    def getSwipes(self) -> None:
+        sb = get_sb()
+        res = sb.table('recommendations').select("left_swipes,right_swipes").eq("id", self.id).execute()
+        # If user's swipe data exists, save it to local instance:
+        if len(res.data) == 1:
+            self.left_swipes = res.data[0].get("left_swipes", [])
+            self.right_swipes = res.data[0].get("right_swipes", [])
+            
+    def swipe(self, restaurantObj:Restaurant, direction:str) -> None:
+        # Validation:
+        if restaurantObj.id is None:
+            raise ServerSideError("Restaurant does not exist.")
+        direction = direction.lower().strip()
+        if direction not in ["left", "right"]:
+            raise ClientSideError("Invalid swipe direction. Must be 'LEFT' or 'RIGHT'")
+        
+        # Store data in Supabase
+        sb = get_sb()
+        self.getSwipes()
+        if direction == "left" and restaurantObj.id not in self.left_swipes:
+            proposed = self.left_swipes.copy()
+            proposed.append(restaurantObj.id)
+            res = sb.table('recommendations').upsert({
+                "id": self.id,
+                f"{direction}_swipes": proposed
+            }).execute()
+            self.left_swipes = proposed
+        elif direction == "right" and restaurantObj.id not in self.right_swipes:
+            proposed = self.right_swipes.copy()
+            proposed.append(restaurantObj.id)
+            res = sb.table('recommendations').upsert({
+                "id": self.id,
+                f"{direction}_swipes": proposed
+            }).execute()
+            self.right_swipes = proposed
+        
+        # res = sb.table('recommendations').select(f'{direction}_swipes').eq('id', self.id).execute()
+        # # Row doesn't exist or just direction of swipes list doesn't exist:
+        # if len(res.data) == 0 or res.data[0][f"{direction}_swipes"] is None:
+        #     newData = [restaurantObj.id]
+        # # Add restaurant ID to array if it is not already there:
+        # elif restaurantObj.id not in res.data[0][f"{direction}_swipes"]:
+        #     newData = res.data[0][f"{direction}_swipes"].copy()
+        #     newData.append(restaurantObj.id)
+        # # Otherwise, no updates
+        # else:
+        #     newData = None
+        # # Update if we have new data:
+        # if newData is not None:
+        #     res = sb.table('recommendations').upsert({
+        #         "id": self.id,
+        #         f"{direction}_swipes": newData
+        #     }).execute()
+        #     print(res.data)
         
     def __repr__(self):
         return json.dumps(self._dict, indent=2)
+
     
 class SupabaseException(Exception):
     """Raised when there is an error in a call to the Supabase API."""
