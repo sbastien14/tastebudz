@@ -82,7 +82,7 @@ class User(dict):
             try:
                 self.getProfile()
             except Exception as error:
-                print(f"{type(error)}: {str(error)}")
+                pass
         elif type(usr) == dict:
             # Create standard instance variables:
             self.id:str = usr.get('id')
@@ -92,7 +92,7 @@ class User(dict):
             self.role:bool = usr.get('role', 0)
             self.first_name = usr.get('first_name')
             self.last_name = usr.get('last_name')
-            self.dob = usr.get('dob')
+            self.dob = dateparser.parse(usr.get('dob')).date()
             self.friends = usr.get('friends')
         else:
             raise Exception("Unexpected type.")

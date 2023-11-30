@@ -6,7 +6,7 @@ def create_app(test_config=None):
     """Constructs the core application."""
     # app = Flask(__name__, instance_relative_config=True)
     # Create app that loads Swagger (OpenAPI) API specs
-    app = FlaskApp(__name__, specification_dir='openapi/')
+    app = FlaskApp(__name__, specification_dir='openapi/', server_args={"instance_relative_config": True})
     # app.add_api('auth.yaml', base_path='/auth', strict_validation=True)
     app.add_api('auth.yaml', base_path='/auth')
     app.add_api('restaurants.yaml')
@@ -23,9 +23,6 @@ def create_app(test_config=None):
     except OSError:
         pass
     
-    from . import auth
-    app.app.register_blueprint(auth.bp)
-    
     from . import sb
     sb.init_app(app.app)
     
@@ -35,10 +32,17 @@ def create_app(test_config=None):
     from . import yelp_api
     yelp_api.init_app(app.app)
     
-    from . import restaurant
-    app.app.register_blueprint(restaurant.bp)
+    from . import auth
+    app.app.register_blueprint(auth.bp)
+    
+    # from . import restaurant
+    # app.app.register_blueprint(restaurant.bp)
     # app.add_url_rule('/', endpoint='index')
     
-    return app.app
+    # return app.app
+    return app
     
     
+# Default case:
+app = create_app()
+flaskApp = app.app
