@@ -1,6 +1,9 @@
 # Visual Studio Code:
 *.code-workspace
 
+# IntelliJ Editor:
+.idea/
+
 # Python Flask Project:
 *.venv
 *.pyc
@@ -15,8 +18,10 @@ build/
 
 # pytest-profiling:
 prof/
-#pytest-recording:
-tests/cassettes/# Python things:
+# pytest-recording:
+tests/cassettes/
+
+# Python things:
 .venv
 .env
 __pycache__/
