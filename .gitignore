@@ -16,4 +16,15 @@ build/
 # pytest-profiling:
 prof/
 #pytest-recording:
-tests/cassettes/
+tests/cassettes/# Python things:
+.venv
+.env
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Mac
+.DS_Store
