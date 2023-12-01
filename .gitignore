@@ -1,4 +1,22 @@
-# Python things:
+# Visual Studio Code:
+*.code-workspace
+
+# Python Flask Project:
+*.venv
+*.pyc
+__pycache__/
+instance/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# pytest-profiling:
+prof/
+#pytest-recording:
+tests/cassettes/# Python things:
 .venv
 .env
 __pycache__/
