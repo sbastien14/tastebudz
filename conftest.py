@@ -41,11 +41,12 @@ def yelpClient():
 @pytest.fixture()
 def temporaryUser(flaskApp, faker):
     profile = faker.simple_profile()
-    with flaskApp:
+    with flaskApp.app_context():
         # Create user account:
+        password = "".join(faker.words().append(str(random.randrange(0,1000))).append(random.choice(["!", "$", "#", "*"])))
         res = g.sb.auth.sign_up({
             "email": profile["mail"],
-            "password": "".join(faker.words().append(str(random.randrange(0,1000))).append(random.choice(["!", "$", "#", "*"]))),
+            "password": password,
             "options": {
                 "data": {
                     "username": profile["username"],
@@ -61,7 +62,7 @@ def temporaryUser(flaskApp, faker):
             "dob": profile["birthdate"].isoformat()
         })
         
-        yield user
+        yield (user, password)
         
         # Delete user account:
         res = g.sb.auth.admin.delete_user(user.id)     
@@ -100,6 +101,28 @@ class AuthActions(object):
         self._client.cookies.clear()
         logging.getLogger().info(f"Cookies: {self._client.cookies}")
         return res
+    
+    def temporary_user(self, faker):
+        # Create user account:
+        profile = faker.simple_profile()
+        password = "".join(faker.words().append(str(random.randrange(0,1000))).append(random.choice(["!", "$", "#", "*"])))
+        res = g.sb.auth.sign_up({
+            "email": profile["mail"],
+            "password": password,
+            "options": {
+                "data": {
+                    "username": profile["username"],
+                    "role": random.randint(0,1)
+                }
+            }
+        })
+        user = User(res)
+        # Create user profile using pre-built class:
+        user.createProfile({
+            "first_name": profile["name"].split()[0],
+            "last_name": profile["name"].split()[1],
+            "dob": profile["birthdate"].isoformat()
+        })
     
 @pytest.fixture()
 def auth(client):

@@ -1,6 +1,7 @@
 import pytest, logging, uuid, random, re, datetime
 from time import sleep
-from tastebudz.models import Restaurant
+from tastebudz.models import Restaurant, User
+from tastebudz.sb import get_sb
 from flask import g
 from starlette.testclient import TestClient
 from faker import Faker
@@ -30,8 +31,28 @@ class TestRestaurantClass:
     @classmethod
     def initParams(cls, faker):
         cls.params = {
-            "test_instantiation_valid_id": [{"id": "bbq"}]
+            "test_recommendation_from_no_data": [{"user": None, "password": None}]
         }
+        # Dynamically create some temporary users:
+        # for i in range(1):
+        #     profile = faker.simple_profile()
+        #     password = "".join(faker.words().append(str(random.randrange(0,1000))).append(random.choice(["!", "$", "#", "*"])))
+        #     sb = get_sb()
+        #     res = sb.auth.sign_up({
+        #         "email": profile["mail"],
+        #         "password": password,
+        #         "options": {
+        #             "data": {
+        #                 "username": profile["username"],
+        #                 "role": random.randint(0,1)
+        #             }
+        #         }
+        #     })
+        #     cls.params["test_recommendation_from_no_data"].append({
+        #         "user": User(res),
+        #         "password": password
+        #     })
+        
         # Dynamically generate some restaurant IDs:
         for i in range(1):
             ...
@@ -45,3 +66,14 @@ class TestRestaurantClass:
     #     # id = random.choice(search["businesses"])["id"]
     #     print(id)
     #     assert id is None
+    
+    @pytest.mark.skip
+    def test_recommendation_from_no_data(self, client, flaskApp, auth, user:User, password:str):
+        with flaskApp.app_context():
+            with client:
+                auth.login_with_password(user.email, password)
+                
+                response = client.get("/restaurant/recommendation")
+                assert response.status_code == 200
+                
+                auth.logout()

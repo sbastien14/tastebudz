@@ -110,7 +110,7 @@ class TestUserComponent:
                 {"username": "TestUser3", "first_name": "John", "last_name": "Sims", "dob": "01-01-1971", "statusCode": 400}
             ],
             "test_create_account_with_password": [],
-            "test_delete_user_account": []
+            "test_delete_user_account": [{"statusCode": 200}]
         }
         # Initialize dynamic parameters:
         for i in range(1):
@@ -122,15 +122,15 @@ class TestUserComponent:
                 "role": usr.role,
                 "statusCode": 202  # May be 201 if email verification is disabled.
             })
-        for i in range(1):
-            usr = cls._createRandomUser(faker)
-            cls.params["test_delete_user_account"].append({
-                "username": usr.username,
-                "email": usr.email,
-                "password": cls._createRandomPassword(faker),
-                "role": usr.role,
-                "statusCode": 200
-            })
+        # for i in range(1):
+        #     usr = cls._createRandomUser(faker)
+        #     cls.params["test_delete_user_account"].append({
+        #         "username": usr.username,
+        #         "email": usr.email,
+        #         "password": cls._createRandomPassword(faker),
+        #         "role": usr.role,
+        #         "statusCode": 200
+        #     })
         
 
     
@@ -204,26 +204,33 @@ class TestUserComponent:
                     supabaseClient.auth.admin.delete_user(resp.json()["user"]["id"])
                     
 
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # NOTE: these API calls are rate-limited, so limit testing.
-    def test_delete_user_account(self, client, flaskApp, auth, supabaseClient, username:str, email:str,
-                                 password:str, role:int, statusCode:int):
+    def test_delete_user_account(self, client, flaskApp, auth, supabaseClient, faker, statusCode:int):
         # Create random user account:
-        supabaseClient.auth.sign_up({
-            "email": email,
+        profile = faker.simple_profile()
+        password = "".join(faker.words())
+        # password = "".join(faker.words().append(str(random.randrange(0,1000))).append(random.choice(["!", "$", "#", "*"])))
+        res = supabaseClient.auth.sign_up({
+            "email": profile["mail"],
             "password": password,
             "options": {
                 "data": {
-                    "username": username,
-                    "role": role
+                    "username": profile["username"],
+                    "role": random.randint(0,1)
                 }
             }
         })
         
-        sleep(10)
+        sleep(5)
         
-        auth.login_with_password(email, password)
         with flaskApp.app_context():
             with client:
-                resp = client.delete(f"/auth/user/{username}")
+                auth.login_with_password(profile["mail"], password)
+                sleep(2)
+                
+                resp = client.delete(f"/auth/user/{profile["username"]}")
                 assert resp.status_code == statusCode
+                sleep(2)
+                
+                auth.logout()

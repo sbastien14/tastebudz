@@ -1,12 +1,14 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for,
+    session, current_app
 )
 from tastebudz.auth import login_required
 from tastebudz.gmaps import get_gmaps
 from tastebudz.yelp_api import get_yelp
 from tastebudz.auth import get_sb
 from tastebudz.models import Restaurant, User
-import random
+from dataset.yelp.user_functions import getRecommendations
+import logging
 
 bp = Blueprint('restaurant', __name__)
 
@@ -19,6 +21,7 @@ def load_logged_in_user():
     else:
         g.user = None
 
+
 def getRestaurant(restaurantId:str):
     try:
         r = Restaurant(restaurantId)
@@ -29,6 +32,7 @@ def getRestaurant(restaurantId:str):
         statusCode = 500
     
     return response, statusCode
+
 
 @login_required
 def swipe(restaurantId:str, direction:str):
@@ -43,9 +47,53 @@ def swipe(restaurantId:str, direction:str):
         
     return response, statusCode
 
+
+@login_required
 def getRec():
-    ...
+    #  Try to retrieve recommendation from session:
+    if "recommendations" in session:
+        # Get a recommendation and generate a Restaurant object from it:
+        try:
+            newRec = Restaurant(session["recommendations"][-1])
+            session["recommendations"].pop()
+        except Exception as error:
+            logging.getLogger().error(f"[RESTAURANT/GETREC] Failed to get recommendation from session. {type(error)}: {str(error)}")
+            response = { "message": f"{type(error)}: {str(error)}" }
+            statusCode = 500
+        else:
+            response = { "restaurant": newRec }
+            statusCode = 200
+            
+        # Generate new recommendations if needed and store Yelp Restaurant IDs in session:
+        if len(session["recommendations"]) < current_app.config["TASTEBUDZ_REC_GEN_THRESHOLD"]:
+            try:
+                session["recommendations"].extend(getRecommendations(g.user.right_swipes))
+            except Exception as error:
+                logging.getLogger().error(f"[RESTAURANT/GETREC] Failed to generate new recommendations. {type(error)}: {str(error)}")
+            
+    # Otherwise, generate new recommendations and put them in our session:
+    else:
+        try:
+            session["recommendations"] = getRecommendations(g.user.right_swipes)
+        except Exception as error:
+            logging.getLogger().error(f"[RESTAURANT/GETREC] Failed to generate recommendations. {type(error)}: {str(error)}")
+            response = { "message": f"{type(error)}: {str(error)}" }
+            statusCode = 500
+
+        # Get a recommendation and generate a Restaurant object from it:
+        try:
+            newRec = Restaurant(session["recommendations"][-1])
+            session["recommendations"].pop()
+        except Exception as error:
+            logging.getLogger().error(f"[RESTAURANT/GETREC] Failed to get recommendation from session. {type(error)}: {str(error)}")
+            response = { "message": f"{type(error)}: {str(error)}" }
+            statusCode = 500
+        else:
+            response = { "restaurant": newRec }
+            statusCode = 200
     
+    return response, statusCode
+            
 
 # def getRestaurant(gmaps, img=True):
 #     # Attributes of interest to filter by:
