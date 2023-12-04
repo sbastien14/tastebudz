@@ -35,19 +35,21 @@ def getRecommendations(likedRestaurants:list) -> list:
     indices = cos_sim[index][0].argsort()[::-1]
     
     short_stack:list = []
-    for i in range(10):
-        for ind in indices:
-            if ind != index and ind not in likedRestaurants:
-                short_stack.append(clean_data_df.iloc[ind])
-    
+    for ind in indices:
+        if ind != index and ind not in likedRestaurants and len(short_stack) < 10:
+            short_stack.append(clean_data_df.iloc[ind])
+        if len(short_stack) == 10:
+            break
     return short_stack
-
+'''
 #function to check if a restaurant is within the user's radius
 def check_bounds(restaurant):
-    ...
+    # write function
 
 # function to create distance importance values
 # do upon start of session
 def calc_distance_importance(current_user):
     for restaurant in reco_df:
         if restaurant.lat: current_user.current_loction
+
+'''

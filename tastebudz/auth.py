@@ -83,8 +83,8 @@ def register(body):
         # Did not receive valid form data:
         body = {"message": "Invalid form data submitted."}
         statusCode = 400
-        logging.getLogger().error(f"[AUTH/REGISTER] Invalid form data:\n\tEmail: {email}\n\t{'*'*5 if password is not None else "None"}\n\tUsername: {username}\n\tRole: {role}")
-                
+        logging.getLogger().error(f"[AUTH/REGISTER] Invalid form data:\n\tEmail: {email}\n\t{'*' * 5 if password is not None else 'None'}\n\tUsername: {username}\n\tRole: {role}")
+
     return body, statusCode
 
 @login_required
