@@ -32,14 +32,18 @@ def fetch_recos(current_user):
 def getRecommendations(likedRestaurants:list) -> list:
     restaurant_id = random.choice(likedRestaurants)
     index = clean_data_df[clean_data_df['id'] == restaurant_id].index
-    indices = cos_sim[index][0].argsort()[::-1]
     
     short_stack:list = []
-    for ind in indices:
-        if ind != index and ind not in likedRestaurants and len(short_stack) < 10:
-            short_stack.append(clean_data_df.iloc[ind])
-        if len(short_stack) == 10:
-            break
+    if not index.empty:
+        index = index[0]
+        indices = cos_sim[index].argsort()[::-1]
+        for ind in indices:
+            if ind != index:
+                if clean_data_df.iloc[ind]['id'] not in short_stack:
+                    short_stack.append(clean_data_df.iloc[ind]['id'])
+                if len(short_stack) == 11:
+                    break
+    short_stack.pop(0)
     return short_stack
 '''
 #function to check if a restaurant is within the user's radius
