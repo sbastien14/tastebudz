@@ -37,6 +37,7 @@ def getRestaurant(restaurantId:str):
 @login_required
 def swipe(restaurantId:str, direction:str):
     try:
+        print(g.user)
         r = Restaurant(restaurantId)
         g.user.swipe(r, direction)
         response = { "restaurant": r }

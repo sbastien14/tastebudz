@@ -325,6 +325,16 @@ components:
           items:
             type: string
             description: UUID for each friend
+        left_swipes:
+          type: array
+          items:
+            type: string
+            description: Yelp Restaurant ID for disliked restaurants
+        right_swipes:
+          type: array
+          items:
+            type: string
+            description: Yelp Restaurant ID for liked restaurants
       xml:
         name: user
     Account:

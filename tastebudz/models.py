@@ -81,6 +81,7 @@ class User(dict):
             # Try to fetch profile data:
             try:
                 self.getProfile()
+                self.getSwipes()
             except Exception as error:
                 pass
         elif type(usr) == dict:
@@ -93,7 +94,9 @@ class User(dict):
             self.first_name = usr.get('first_name')
             self.last_name = usr.get('last_name')
             self.dob = dateparser.parse(usr.get('dob')).date()
-            self.friends = usr.get('friends')
+            self.friends = usr.get('friends', [])
+            self.left_swipes = usr.get('left_swipes', [])
+            self.right_swipes = usr.get('right_swipes', [])
         else:
             raise Exception("Unexpected type.")
         
@@ -107,7 +110,9 @@ class User(dict):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "dob": self.dob.isoformat() if self.dob is not None else "",
-            "friends": self.friends
+            "friends": self.friends,
+            "left_swipes": self.left_swipes,
+            "right_swipes": self.right_swipes
         }
         dict.__init__(self, self._dict)
     
@@ -213,8 +218,8 @@ class User(dict):
         res = sb.table('recommendations').select("left_swipes,right_swipes").eq("id", self.id).execute()
         # If user's swipe data exists, save it to local instance:
         if len(res.data) == 1:
-            self.left_swipes = res.data[0].get("left_swipes", [])
-            self.right_swipes = res.data[0].get("right_swipes", [])
+            self.left_swipes = res.data[0].get("left_swipes") or []
+            self.right_swipes = res.data[0].get("right_swipes") or []
             
     def swipe(self, restaurantObj:Restaurant, direction:str) -> None:
         # Validation:
