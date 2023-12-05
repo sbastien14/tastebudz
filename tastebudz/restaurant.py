@@ -55,7 +55,7 @@ def getRec():
         # Get a recommendation and generate a Restaurant object from it:
         try:
             newRec = Restaurant(session["recommendations"][-1])
-            session["recommendations"].pop()
+            session["recommendations"] = session["recommendations"][:-1]
         except Exception as error:
             logging.getLogger().error(f"[RESTAURANT/GETREC] Failed to get recommendation from session. {type(error)}: {str(error)}")
             response = { "message": f"{type(error)}: {str(error)}" }
@@ -68,6 +68,7 @@ def getRec():
         if len(session["recommendations"]) < current_app.config["TASTEBUDZ_REC_GEN_THRESHOLD"]:
             try:
                 session["recommendations"].extend(getRecommendations(g.user.right_swipes))
+                logging.getLogger().info("[RESTAURANT/GETREC] Generated new recommendations.")
             except Exception as error:
                 logging.getLogger().error(f"[RESTAURANT/GETREC] Failed to generate new recommendations. {type(error)}: {str(error)}")
             
@@ -75,6 +76,7 @@ def getRec():
     else:
         try:
             session["recommendations"] = getRecommendations(g.user.right_swipes)
+            logging.getLogger().info("[RESTAURANT/GETREC] Generated new recommendations.")
         except Exception as error:
             logging.getLogger().error(f"[RESTAURANT/GETREC] Failed to generate recommendations. {type(error)}: {str(error)}")
             response = { "message": f"{type(error)}: {str(error)}" }
@@ -91,6 +93,7 @@ def getRec():
         else:
             response = { "restaurant": newRec }
             statusCode = 200
+    print(session["recommendations"])
     
     return response, statusCode
             
