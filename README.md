@@ -26,7 +26,7 @@ The frontend codebase is organized to support a clear separation of concerns, wi
     - `ReviewCard.jsx`: A card component used to display individual reviews.
     - `SwipeView.jsx`: The swipeable view component used in the main food swiping interface.
 
-- `data`: Stores JSON files, configuration files, or other data formats that the frontend might use.
+- `data`: Stores JSON files, configuration files, and other data formats that the frontend might use.
 
 - `pages`: Each JSX file represents a different page in the application, providing unique structure and functionality.
   - `ErrorPage.jsx`: Renders an error view when the application encounters a routing issue.
@@ -40,7 +40,7 @@ The frontend codebase is organized to support a clear separation of concerns, wi
 
 - `index.js`: The starting point for the React application that mounts the `App` component to the DOM.
 
-- `setupTests.js`: Prepares the testing environment for the application, such as setting up tools like Jest or React Testing Library.
+- `setupTests.js`: Prepares the testing environment for the application.
 
 ## Backend
 Backend is based on Flask and wrapped in an ASGI application through the Connexion library that delivers automatic routing and request verification based on OpenAPI 3.0 specifications.
