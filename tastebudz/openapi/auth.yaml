@@ -1,0 +1,405 @@
+openapi: 3.0.3
+info:
+  title: Tastebudz Auth
+  description: Tastebudz Auth API
+  contact:
+    email: jnmosca@syr.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.1
+servers:
+  - url: http://127.0.0.1:5000/auth
+tags:
+  - name: user
+    description: Operations about user
+paths:
+  /user:
+    post:
+      tags:
+        - user
+      summary: Register new user account
+      description:
+        This only creates a user account. It does not
+        create additional profile information.
+        You must provide email and password for the new
+        account as HTTP basic authentication
+        (base-64 encoded username:password in authorization header).
+      operationId: tastebudz.auth.register
+      parameters:
+        - name: authorization
+          description: base64-encoded string username:password (HTTP Basic Auth)
+          in: header
+          required: false
+          schema:
+            type: string
+      requestBody:
+        description: Created user account
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '201':
+          description: Successfully created new user
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Message'
+                  - $ref: '#/components/schemas/User'
+        '202':
+          description: User created, awaiting email verification
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Message'
+                  - $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/InvalidCreds'
+        '500':
+          $ref: '#/components/responses/UnknownServerError'
+        '502':
+          $ref: '#/components/responses/UpstreamApiError'
+        default:
+          $ref: '#/components/responses/UnknownServerError'
+  /user/login:
+    get:
+      tags:
+        - user
+      summary: Logs user in and creates a new session
+      description:
+        Logs user into the system. You may provide **email
+        and password** as HTTP basic authentication,
+        or **oauth_provider** to receive OAuth redirect,
+        or **oauth_provider**, **access_token**, and **refresh_token**
+        to login with OAuth.
+      operationId: tastebudz.auth.login
+      parameters:
+        - name: authorization
+          in: header
+          description: base64-encoded string username:password (HTTP Basic Auth)
+          required: false
+          schema:
+            type: string
+        - name: oauth_provider
+          in: query
+          description: The OAuth provider to be used for SSO
+          required: false
+          schema:
+            type: string
+        - name: access_token
+          in: query
+          description: The access token returned by OAuth provider
+          required: false
+          schema:
+            type: string
+        - name: refresh_token
+          in: query
+          description: The refresh token returned by OAuth provider
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully logged in
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Message'
+                  - $ref: '#/components/schemas/User'
+        '303':
+          $ref: '#/components/responses/Redirect'
+        '401':
+          $ref: '#/components/responses/InvalidCreds'
+        '500':
+          $ref: '#/components/responses/UnknownServerError'
+        '502':
+          $ref: '#/components/responses/UpstreamApiError'
+        default:
+          $ref: '#/components/responses/UnknownServerError'
+  /user/logout:
+    get:
+      tags:
+        - user
+      summary: Logs out current logged in user session
+      description: Logs out currently logged-in user
+      operationId: tastebudz.auth.logout
+      parameters: []
+      responses:
+        '200':
+          description: User logged out successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '502':
+          $ref: '#/components/responses/UpstreamApiError'
+        '500':
+          $ref: '#/components/responses/UnknownServerError'
+        default:
+          $ref: '#/components/responses/UnknownServerError'
+  /user/{username}:
+    post:
+      tags:
+        - user
+      summary: Create user profile.
+      description:
+        Populate user profile for an existing account.
+        \**You must be logged-in to do this.**
+      operationId: tastebudz.auth.createUserProfile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Message'
+                  - $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid username supplied
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Message'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '502':
+          $ref: '#/components/responses/UpstreamApiError'
+        default:
+          $ref: '#/components/responses/UnknownServerError'
+    get:
+      tags:
+        - user
+      summary: Get user profile
+      description: Get user profile by username
+      operationId: tastebudz.auth.getUserProfile
+      parameters:
+        - name: username
+          in: path
+          description: 'The name that needs to be fetched. Use testUser1 for testing. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Message'
+                  - $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid username supplied
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Message'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '502':
+          $ref: '#/components/responses/UpstreamApiError'
+        default:
+          $ref: '#/components/responses/UnknownServerError'
+    put:
+      tags:
+        - user
+      summary: Update user
+      description: This can only be done by the logged in user.
+      operationId: tastebudz.auth.updateUserProfile
+      parameters:
+        - name: username
+          in: path
+          description: username of current user to be modified
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existing user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Message'
+                  - $ref: '#/components/schemas/User'         
+        '400':
+          description: Invalid username supplied
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Message'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '502':
+          $ref: '#/components/responses/UpstreamApiError'
+        default:
+          $ref: '#/components/responses/UnknownServerError'
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: tastebudz.auth.deleteUser
+      parameters:
+        - name: username
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Message'
+                  - $ref: '#/components/schemas/User'         
+        '400':
+          description: Invalid username supplied
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Message'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '502':
+          $ref: '#/components/responses/UpstreamApiError'
+        default:
+          $ref: '#/components/responses/UnknownServerError'
+components:
+  schemas:
+    User:
+      description: all user data excluding auth.
+      type: object
+      properties:
+        id:
+          type: string
+          example: 3f708de2-789b-45c4-b002-93d79c26bee8
+        username:
+          type: string
+          example: JohnJ@example.com
+        first_name:
+          type: string
+          example: John
+        last_name:
+          type: string
+          example: James
+        dob:
+          type: string
+          example: 01-01-1971
+        email:
+          type: string
+          example: john@email.com
+        phone:
+          type: string
+          example: '12345'
+        role:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1
+          example: 0
+          description: 0 is used to represent customer or "bud", and 1 to represent restaurant owner.
+        friends:
+          type: array
+          items:
+            type: string
+            description: UUID for each friend
+        left_swipes:
+          type: array
+          items:
+            type: string
+            description: Yelp Restaurant ID for disliked restaurants
+        right_swipes:
+          type: array
+          items:
+            type: string
+            description: Yelp Restaurant ID for liked restaurants
+      xml:
+        name: user
+    Account:
+      description: account information needed for registration (metadata), excluding auth.
+      type: object
+      properties:
+        username:
+          type: string
+          example: JohnJ@example.com
+          description: used to identify friends and view profiles, not for authentication
+        role:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1
+          example: 0
+          description: 0 is used to represent customer or "bud", and 1 to represent restaurant owner.
+      xml:
+        name: user
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+          description: describes the event in plaintext
+      xml:
+        name: message
+  responses:
+    UpstreamApiError:
+      description: An upstream server encountered an error in filling the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+    UnknownServerError:
+      description: An unknown server error has occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+    NotFoundError:
+      description: The resource requested was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+    InvalidCreds:
+      description: Invalid email/password provided
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+    Redirect:
+      description: Redirecting for sign-in with OAuth provider
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+      headers:
+        location:
+          description: URI for redirect
+          schema:
+            type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      x-basicInfoFunc: verifyBasicAuth
