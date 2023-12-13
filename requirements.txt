@@ -1,77 +1,83 @@
-Package                   Version
-------------------------- ------------
-a2wsgi                    1.8.0
-annotated-types           0.6.0
-anyio                     4.0.0
-asgiref                   3.7.2
-attrs                     23.1.0
-blinker                   1.6.3
-certifi                   2023.7.22
-charset-normalizer        3.3.1
-click                     8.1.7
-clickclick                20.10.2
-colorama                  0.4.6
-connexion                 3.0.1
-coverage                  7.3.2
-deprecation               2.1.0
-Faker                     20.0.0
-Flask                     2.2.5
-googlemaps                4.10.0
-gotrue                    1.2.0
-gprof2dot                 2022.7.29
-h11                       0.14.0
-httpcore                  0.17.3
-httplib2                  0.22.0
-httptools                 0.6.1
-httpx                     0.24.1
-idna                      3.4
-inflection                0.5.1
-iniconfig                 2.0.0
-itsdangerous              2.1.2
-Jinja2                    3.1.2
-jsonschema                4.19.1
-jsonschema-specifications 2023.7.1
-MarkupSafe                2.1.3
-multidict                 6.0.4
-oauth2                    1.9.0.post1
-packaging                 23.2
-pip                       23.3
-pluggy                    1.3.0
-postgrest                 0.11.0
-pydantic                  2.4.2
-pydantic_core             2.10.1
-pyparsing                 3.1.1
-pytest                    7.4.3
-pytest-cov                4.1.0
-pytest-profiling          1.7.0
-pytest-randomly           3.15.0
-pytest-recording          0.13.0
-pytest-sugar              0.9.7
-pytest-timeout            2.2.0
-python-dateutil           2.8.2
-python-dotenv             1.0.0
-python-multipart          0.0.6
-PyYAML                    6.0.1
-realtime                  1.0.0
-referencing               0.30.2
-requests                  2.31.0
-rpds-py                   0.10.6
-six                       1.16.0
-sniffio                   1.3.0
-starlette                 0.32.0.post1
-storage3                  0.6.1
-StrEnum                   0.4.15
-supabase                  1.2.0
-supafunc                  0.2.3
-swagger-ui-bundle         0.0.9
-termcolor                 2.3.0
-typing_extensions         4.8.0
-urllib3                   2.0.7
-uvicorn                   0.24.0.post1
-vcrpy                     5.1.0
-watchfiles                0.21.0
-websockets                10.4
-Werkzeug                  2.2.3
-wrapt                     1.16.0
-yarl                      1.9.2
-yelp                      1.0.2
+a2wsgi==1.8.0
+annotated-types==0.6.0
+anyio==4.0.0
+asgiref==3.7.2
+attrs==23.1.0
+blinker==1.6.3
+certifi==2023.7.22
+charset-normalizer==3.3.1
+click==8.1.7
+clickclick==20.10.2
+colorama==0.4.6
+connexion==3.0.1
+coverage==7.3.2
+deprecation==2.1.0
+Faker==20.0.0
+Flask==2.2.5
+googlemaps==4.10.0
+gotrue==1.2.0
+gprof2dot==2022.7.29
+h11==0.14.0
+httpcore==0.17.3
+httplib2==0.22.0
+httptools==0.6.1
+httpx==0.24.1
+idna==3.4
+inflection==0.5.1
+iniconfig==2.0.0
+itsdangerous==2.1.2
+Jinja2==3.1.2
+joblib==1.3.2
+jsonschema==4.19.1
+jsonschema-specifications==2023.7.1
+MarkupSafe==2.1.3
+multidict==6.0.4
+numpy==1.26.2
+oauth2==1.9.0.post1
+packaging==23.2
+pandas==2.1.3
+pluggy==1.3.0
+postgrest==0.11.0
+pydantic==2.4.2
+pydantic_core==2.10.1
+pyparsing==3.1.1
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-profiling==1.7.0
+pytest-randomly==3.15.0
+pytest-recording==0.13.0
+pytest-repeat==0.9.3
+pytest-sugar==0.9.7
+pytest-timeout==2.2.0
+python-dateutil==2.8.2
+python-dotenv==1.0.0
+python-multipart==0.0.6
+pytz==2023.3.post1
+PyYAML==6.0.1
+realtime==1.0.0
+referencing==0.30.2
+requests==2.31.0
+rpds-py==0.10.6
+scikit-learn==1.3.2
+scipy==1.11.4
+six==1.16.0
+sniffio==1.3.0
+starlette==0.32.0.post1
+storage3==0.6.1
+StrEnum==0.4.15
+supabase==1.2.0
+supafunc==0.2.3
+swagger-ui-bundle==0.0.9
+termcolor==2.3.0
+threadpoolctl==3.2.0
+typing_extensions==4.8.0
+tzdata==2023.3
+urllib3==2.0.7
+uvicorn==0.24.0.post1
+vcrpy==5.1.0
+watchfiles==0.21.0
+websockets==10.4
+Werkzeug==2.2.3
+wrapt==1.16.0
+yarl==1.9.2
+yelp==1.0.2
