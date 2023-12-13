@@ -1,5 +1,7 @@
 from flask import Flask
 from connexion import FlaskApp
+from connexion.middleware import MiddlewarePosition
+from starlette.middleware.cors import CORSMiddleware
 from os import makedirs
 
 def create_app(test_config=None):
@@ -7,6 +9,14 @@ def create_app(test_config=None):
     # app = Flask(__name__, instance_relative_config=True)
     # Create app that loads Swagger (OpenAPI) API specs
     app = FlaskApp(__name__, specification_dir='openapi/', server_args={"instance_relative_config": True})
+    app.add_middleware(
+        CORSMiddleware,
+        position=MiddlewarePosition.BEFORE_ROUTING,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
     # app.add_api('auth.yaml', base_path='/auth', strict_validation=True)
     app.add_api('auth.yaml', base_path='/auth')
     app.add_api('restaurants.yaml')
