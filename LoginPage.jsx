@@ -16,29 +16,22 @@ function LoginPage() {
   
   const [showRegisterForm, setShowRegisterForm] = useState(false);
 
-  const handleLogin = async () => {
-    const authorization = 'Basic ' + window.btoa(email + ':' + password);
-  
-    try {
-      const response = await axios.post('http://127.0.0.1:5000/auth/user/login', {}, {
-        headers: {
-          'Authorization': authorization
-        }
-      });
-  
-      console.log('Login successful:', response.data);
-      window.location.href = '/home'; 
-  
-    } catch (error) {
-      const errorMessage = error.response ? error.response.data.message : 'Account not found or invalid credentials';
-      setLoginError(errorMessage);
-      console.error('Login error:', errorMessage);
-    }
-  };
+  const handleLogin = async (username, password) => {
+    const response = await axios.get('http://127.0.0.1:5000/auth/user/login' , {
+      headers: {"Access-Control-Allow-Origin": "*", 
+        'Content-Type': 'application/json'
+      },
+      auth: {
+        username: username, 
+        password: password  
+      }
+    });
+  }
+
   
   const handleRegister = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/auth/user', {
+      const response = await axios.get('http://127.0.0.1:5000/auth/user', {
         email: registerEmail, 
         password: registerPassword
       }, {
