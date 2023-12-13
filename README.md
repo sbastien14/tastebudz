@@ -1,6 +1,47 @@
 # Tastebudz
 A web application that leverages machine learning to recommend local restaurants to the user based on their swipes.
 
+## Frontend
+The frontend is built using React and provides a dynamic, user-friendly interface to interact with the Tastebudz service.
+
+### Installation
+  1. Ensure that Node.js and npm (Node Package Manager) are installed on your system.
+  2. Navigate to the frontend directory of the project and run `npm install` to install all required dependencies.
+
+### Running the Frontend
+  1. In the parent directory of the frontend project, run the command `npm start`. This will compile the React application and open it in your default web browser.
+  __Note:__ The frontend will run on `http://localhost:3000` by default. Ensure that no other service is using this port. 
+  2. The frontend application should now be accessible and connect to the backend services as configured.
+### Structure
+The frontend codebase is organized to support a clear separation of concerns, with directories for assets, components, pages, and more:
+- `assets`: Contains static files like images, global stylesheets, and any additional resources required for the user interface.
+- `components`: This directory includes reusable React components that form the user interface, organized in subdirectories:
+  - `home`: Components specifically designed for the main food swiping interface, which is the core feature of the application.
+    - `FilterMenu.jsx`: The component for filtering the displayed food options.
+    - `FriendsList.jsx`: A component to display and manage a user's friends list.
+    - `SideMenu.jsx`: The side navigation menu component for the home page.
+  - `shared`: Contains common components used across multiple pages of the application.
+    - `Button.jsx`: A customizable button component used throughout the application.
+    - `Navbar.jsx`: The navigation bar component that appears across the top of most pages.
+    - `ReviewCard.jsx`: A card component used to display individual reviews.
+    - `SwipeView.jsx`: The swipeable view component used in the main food swiping interface.
+
+- `data`: Stores JSON files, configuration files, or other data formats that the frontend might use.
+
+- `pages`: Each JSX file represents a different page in the application, providing unique structure and functionality.
+  - `ErrorPage.jsx`: Renders an error view when the application encounters a routing issue.
+  - `HomePage.jsx`: Acts as the main swiping interface where users interact with food options.
+  - `LandingPage.jsx`: Serves as the initial view for users, offering an overview and entry to the application.
+  - `LoginPage.jsx`: Provides the login interface for users to authenticate and gain access to the application.
+
+- `App.js`: The root React component that encapsulates the entire application's structure.
+
+- `App.test.js`: Includes tests for the `App.js` root component.
+
+- `index.js`: The starting point for the React application that mounts the `App` component to the DOM.
+
+- `setupTests.js`: Prepares the testing environment for the application, such as setting up tools like Jest or React Testing Library.
+
 ## Backend
 Backend is based on Flask and wrapped in an ASGI application through the Connexion library that delivers automatic routing and request verification based on OpenAPI 3.0 specifications.
 
