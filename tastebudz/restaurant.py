@@ -97,7 +97,6 @@ def getRec():
     print(session["recommendations"])
     
     return response, statusCode
-            
 
 # def getRestaurant(gmaps, img=True):
 #     # Attributes of interest to filter by:

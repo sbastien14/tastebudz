@@ -7,7 +7,7 @@ from os import makedirs
 def create_app(test_config=None):
     """Constructs the core application."""
     # app = Flask(__name__, instance_relative_config=True)
-    # Create app that loads Swagger (OpenAPI) API specs
+    # Create app that loads Swagger (OpenAPI) API spec.
     app = FlaskApp(__name__, specification_dir='openapi/', server_args={"instance_relative_config": True})
     app.add_middleware(
         CORSMiddleware,

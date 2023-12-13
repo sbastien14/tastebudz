@@ -319,7 +319,6 @@ def updateUserProfile(username:str, body):
         statusCode = 200
         
     return body, statusCode
-    
 
 @bp.before_app_request
 def load_logged_in_user():
@@ -333,4 +332,3 @@ def load_logged_in_user():
     else:
         g.user = None
         logging.getLogger().warn(f"[AUTH/REQUEST] User not logged-in.")
-    
