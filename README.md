@@ -1,6 +1,19 @@
 # Tastebudz
 A web application that leverages machine learning to recommend local restaurants to the user based on their swipes.
 
+In addition to the information below on installation, setup, and testing, we have more information in the following locations:
+
+| Item | Location |
+| --- | --- |
+| Bug Tracker | [docs/bugs.md](docs/bugs.md) |
+| UI/UX Designs | [designs/](designs/) |
+
+## Installation & Setup
+...
+
+## How To Use Tastebudz
+...
+
 ## Frontend
 The frontend is built using React and provides a dynamic, user-friendly interface to interact with the Tastebudz service.
 
