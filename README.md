@@ -17,7 +17,21 @@ In addition to the information below on installation, setup, and testing, we hav
 6. Navigate to http://localhost:3000 and get started!
 
 ## How To Use Tastebudz
-...
+
+### How to Register
+  1. Visit the landing page and find the "Find Your Perfect Bite" section.
+  2. Click the "Create Your Account" button.
+  3. You will be redirected to a registration page.
+  4. Enter your email and create a password as prompted.
+  5. Once registered, you will be automatically logged in.
+  6. You will then be directed to the swipe page.
+
+### How to Swipe
+  1. The swipe page will present a card with restaurant details.
+  2. Use the information on the card to decide if you like the restaurant.
+  3. Click on the left arrow icon to indicate you don't like the restaurant.
+  4. Click on the right arrow icon to indicate you like the restaurant.
+  5. Every time you swipe left or right, new restaurants will be displayed for your review.
 
 ## Frontend
 The frontend is built using React and provides a dynamic, user-friendly interface to interact with the Tastebudz service.
