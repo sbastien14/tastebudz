@@ -6,10 +6,9 @@ import FriendsList from '../components/home/FriendsList';
 import SwipeView from '../components/shared/SwipeView';
 
 function HomePage() {
-    // Consider fetching real user data for the FriendsList component
     return (
         <div style={styles.homeContainer}>
-            {/* Customize Navbar based on user authentication status */}
+            {/* Customize Navbar status */}
             <Navbar auth={true}/>
             <div style={styles.mainContent}>
                 {/* SideMenu can also be made dynamic based on page context */}
@@ -29,7 +28,7 @@ function HomePage() {
     );
 }
 
-// Enhance styles for a more modern and responsive design
+// Enhance styles 
 const styles = {
     homeContainer: {
         display: 'flex',
