@@ -9,7 +9,12 @@ In addition to the information below on installation, setup, and testing, we hav
 | UI/UX Designs | [designs/](designs/) |
 
 ## Installation & Setup
-...
+1. Clone this git repository to your computer.
+2. Install the frontend application by following the steps [here](#installation).
+3. Install the backend application by following the steps [here](#installation-1).
+4. Run the backend application by following the steps [here](#running-the-backend).
+5. Run the frontend application by following the steps [here](#running-the-frontend).
+6. Navigate to http://localhost:3000 and get started!
 
 ## How To Use Tastebudz
 ...
