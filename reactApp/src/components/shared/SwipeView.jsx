@@ -1,86 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Dimensions, Colors } from '../../data/Constants';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { PiStarFill, PiStarHalfFill } from 'react-icons/pi';
 import ReviewCard from '../../components/shared/ReviewCard';
-import dinosaurBBQImg from '../../assets/syracuse-exterior-960x639.jpg';
-import pastabilitiesImg from '../../assets/image-asset.jpg';
-import kittyHoynesImg from '../../assets/1393511327089.jpg';
-
-const restaurantData = [
-    {
-        name: "Pastabilities",
-        type: "Italian",
-        address: "311 S Franklin St, Syracuse NY 13202",
-        rating: 4.5,
-        reviews: [
-            { reviewer: "Alice Johnson", comment: "Amazing homemade pasta!" },
-            { reviewer: "John Smith", comment: "Loved the cozy atmosphere and delicious food." },
-            { reviewer: "Emily White", comment: "Best Italian restaurant in Syracuse." },
-        ],
-        imageUrl: pastabilitiesImg
-    },
-    {
-        name: "Dinosaur BBQ",
-        type: "Barbecue",
-        address: "246 W Willow St, Syracuse, NY 13202",
-        rating: 4.2,
-        reviews: [
-            { reviewer: "David Brown", comment: "Great BBQ, loved the ribs!" },
-            { reviewer: "Sarah Johnson", comment: "A must-visit for BBQ lovers." },
-            { reviewer: "Mike Davis", comment: "Friendly staff and fantastic brisket." },
-        ],
-        imageUrl: dinosaurBBQImg
-    },
-    {
-        name: "Kitty Hoynes Irish Pub",
-        type: "Irish",
-        address: "301 W Fayette St, Syracuse, NY 13202",
-        rating: 4.3,
-        reviews: [
-            { reviewer: "Patrick O'Brien", comment: "Authentic Irish pub with a great selection of beers." },
-            { reviewer: "Molly Malone", comment: "Perfect spot for a cozy evening." },
-            { reviewer: "Liam Gallagher", comment: "The fish and chips were outstanding!" },
-        ],
-        imageUrl: kittyHoynesImg
-    },
-];
 
 function SwipeView() {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [restaurants, setRestaurants] = useState([]);
+
+    useEffect(() => {
+        // Fetch restaurant data 
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/dataset');
+                setRestaurants(response.data);
+            } catch (error) {
+                console.error('Error fetching restaurant data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleSwipeLeft = () => {
-        setCurrentIndex((prevIndex) => prevIndex > 0 ? prevIndex - 1 : restaurantData.length - 1);
+        setCurrentIndex(prevIndex => prevIndex > 0 ? prevIndex - 1 : restaurants.length - 1);
     };
 
     const handleSwipeRight = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % restaurantData.length);
+        setCurrentIndex(prevIndex => (prevIndex + 1) % restaurants.length);
     };
 
-    const currentRestaurant = restaurantData[currentIndex];
+    if (restaurants.length === 0) {
+        return <div>Loading restaurants...</div>;
+    }
+
+    const currentRestaurant = restaurants[currentIndex];
 
     return (
         <div style={styles.swipeView}>
-            <button style={styles.swipeAction} onClick={handleSwipeLeft}><BsArrowLeft color='white'/></button>
+            <button style={styles.swipeAction} onClick={handleSwipeLeft}>
+                <BsArrowLeft color='white'/>
+            </button>
             <div style={styles.swipeContainer}>
                 <div style={styles.restaurantCard}>
                     <div style={styles.restaurantHeader}>
                         <h3 style={styles.restaurantName}>{currentRestaurant.name}</h3>
                         <div>
-                            <PiStarFill size={30} />
-                            <PiStarFill size={30} />
-                            <PiStarFill size={30} />
-                            <PiStarFill size={30} />
-                            <PiStarHalfFill size={30} />
+                            {[...Array(Math.floor(currentRestaurant.rating))].map((_, i) => (
+                                <PiStarFill key={i} size={30} />
+                            ))}
+                            {currentRestaurant.rating % 1 > 0 && <PiStarHalfFill size={30} />}
                         </div>
                     </div>
-                    <div style={{ ...styles.restaurantImgContainer, background: `url(${currentRestaurant.imageUrl}) center center / cover no-repeat` }}>
-                        {/* Image will be displayed here */}
+                    <div style={{ ...styles.restaurantImgContainer, backgroundImage: `url(${currentRestaurant.imageUrl})` }}>
+                        {/* Image should display here */}
                     </div>
                     <div style={styles.restaurantInfo}>
                         <h4>{currentRestaurant.address}</h4>
                         <p>{currentRestaurant.type}</p>
-                        <p style={styles.expenses}>$$</p>
+                        <p style={styles.expenses}>{currentRestaurant.priceRange || '$$'}</p>
                     </div>
                 </div>
                 <div style={styles.restaurantReviews}>
@@ -89,7 +68,9 @@ function SwipeView() {
                     ))}
                 </div>
             </div>
-            <button style={styles.swipeAction} onClick={handleSwipeRight}><BsArrowRight color='white'/></button>
+            <button style={styles.swipeAction} onClick={handleSwipeRight}>
+                <BsArrowRight color='white'/>
+            </button>
         </div>
     );
 }
@@ -159,7 +140,7 @@ const styles = {
 
     restaurantImgContainer: {
         height: 650,
-        // Image background set dynamically
+        // Image background set here 
     },
 
     expenses: {
