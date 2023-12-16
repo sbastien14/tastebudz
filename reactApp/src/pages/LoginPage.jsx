@@ -8,55 +8,68 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [registerError, setRegisterError] = useState('');
 
-  
   const [showRegisterForm, setShowRegisterForm] = useState(false);
 
-  const handleLogin = async (username, password) => {
-    const response = await axios.get('http://127.0.0.1:5000/auth/user/login' , {
-      headers: {
-        "Access-Control-Allow-Origin": "*", 
-        'Content-Type': 'application/json'
-      },
-      auth: {
-        username: username, 
-        password: password  
-      }
-    });
-  }
-
-  
-  const handleRegister = async (email, password, username, role) => {
+  const handleLogin = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/auth/user', {
-        username: username,
-        role: role
-      },
-      {
+      const response = await axios.get('http://127.0.0.1:5000/auth/user/login', {
         headers: {
-          'Content-Type': 'application/json' 
+          "Access-Control-Allow-Origin": "*",
+          'Content-Type': 'application/json'
         },
         auth: {
           username: email,
           password: password
         }
       });
-  
-      console.log('Registration successful:', response.data);
-      setShowRegisterForm(false);
-      setLoginError('Account created successfully. Please log in.');
-  
+
+      if (response.status === 200 && response.data.id) {
+        // Redirect to home page (swipe view)
+      } else {
+        // Show error message
+        setLoginError(response.data.message || 'Unknown error occurred');
+      }
+    } catch (error) {
+      const errorMessage = error.response ? error.response.data.message : 'Login failed';
+      setLoginError(errorMessage);
+    }
+  }
+
+  const handleRegister = async (email, password, username, role) => {
+    try {
+      const response = await axios.post('http://127.0.0.1:5000/auth/login/user', {
+        username: username,
+        role: role
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        auth: {
+          username: email,
+          password: password
+        }
+      });
+
+      if (response.status === 200) {
+        // Redirect to login page or show success message
+        setShowRegisterForm(false);
+        setLoginError('Account created successfully. Please log in.');
+      } else {
+        // Show error message
+        setRegisterError(response.data.message || 'Unknown error occurred');
+      }
     } catch (error) {
       const errorMessage = error.response ? error.response.data.message : 'Error registering account';
       setRegisterError(errorMessage);
       console.error('Registration error:', errorMessage);
     }
   };
-
+ 
   return (
     <div style={styles.loginContainer}>
       <div style={styles.loginContent}>
@@ -107,7 +120,7 @@ function LoginPage() {
               />
             </div>
             {loginError && <p style={styles.errorText}>{loginError}</p>}
-            <button onClick={handleLogin} style={styles.loginButton}>Login</button>
+            <button onClick={() => handleLogin(email, password)} style={styles.loginButton}>Login</button>
             <button onClick={() => setShowRegisterForm(true)} style={styles.toggleButton}>Create an Account</button>
           </>
         )}
