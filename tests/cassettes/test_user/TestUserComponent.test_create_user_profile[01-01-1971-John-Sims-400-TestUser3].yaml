@@ -1,5 +1,243 @@
 interactions:
 - request:
+    body: '{"email": "jnmosca+testuser3@syr.edu", "password": "P@ssw0rd!", "data":
+      {}, "gotrue_meta_security": {"captcha_token": null}}'
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      apikey:
+      - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
+      authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
+      connection:
+      - keep-alive
+      content-length:
+      - '124'
+      content-type:
+      - application/json;charset=UTF-8
+      host:
+      - trrumwimmcwglaqhnnci.supabase.co
+      user-agent:
+      - python-httpx/0.24.1
+      x-client-info:
+      - supabase-py/1.2.0
+    method: POST
+    uri: https://trrumwimmcwglaqhnnci.supabase.co/auth/v1/token?grant_type=password
+  response:
+    content: '{"access_token":"eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o","token_type":"bearer","expires_in":3600,"expires_at":1702693558,"refresh_token":"gFKY6SIMlwYB-KZzVAiVlA","user":{"id":"09a12100-845c-4592-9530-59d9a040ca7b","aud":"authenticated","role":"authenticated","email":"jnmosca+testuser3@syr.edu","email_confirmed_at":"2023-11-01T22:34:06.509805Z","phone":"","confirmation_sent_at":"2023-11-01T22:32:07.870473Z","confirmed_at":"2023-11-01T22:34:06.509805Z","last_sign_in_at":"2023-12-16T01:25:58.140014318Z","app_metadata":{"provider":"email","providers":["email"]},"user_metadata":{"role":0,"username":"TestUser3"},"identities":[{"identity_id":"6ccfc37a-49af-4b6d-97da-8d3868bb3507","id":"09a12100-845c-4592-9530-59d9a040ca7b","user_id":"09a12100-845c-4592-9530-59d9a040ca7b","identity_data":{"email":"jnmosca+testuser3@syr.edu","sub":"09a12100-845c-4592-9530-59d9a040ca7b"},"provider":"email","last_sign_in_at":"2023-11-01T22:32:07.860346Z","created_at":"2023-11-01T22:32:07.860387Z","updated_at":"2023-11-01T22:32:07.860387Z","email":"jnmosca+testuser3@syr.edu"}],"created_at":"2023-11-01T22:32:07.851463Z","updated_at":"2023-12-16T01:25:58.141681Z"}}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-Ray:
+      - 836322ad3a9b8714-ORD
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 16 Dec 2023 01:25:58 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - sb-access-token=eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o;
+        Path=/; Expires=Sun, 17 Dec 2023 01:25:58 GMT; Max-Age=86400; HttpOnly; Secure
+      - sb-refresh-token=gFKY6SIMlwYB-KZzVAiVlA; Path=/; Expires=Sun, 17 Dec 2023
+        01:25:58 GMT; Max-Age=86400; HttpOnly; Secure
+      Strict-Transport-Security:
+      - max-age=2592000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding, Origin
+      Via:
+      - kong/2.8.1
+      X-Kong-Proxy-Latency:
+      - '1'
+      X-Kong-Upstream-Latency:
+      - '88'
+      alt-svc:
+      - h3=":443"; ma=86400
+      sb-gateway-version:
+      - '1'
+    http_version: HTTP/1.1
+    status_code: 200
+- request:
+    body: '{}'
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      accept-profile:
+      - public
+      apikey:
+      - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
+      authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o
+      connection:
+      - keep-alive
+      content-length:
+      - '2'
+      content-profile:
+      - public
+      content-type:
+      - application/json
+      host:
+      - trrumwimmcwglaqhnnci.supabase.co
+      user-agent:
+      - python-httpx/0.24.1
+      x-client-info:
+      - supabase-py/1.2.0
+    method: GET
+    uri: https://trrumwimmcwglaqhnnci.supabase.co/rest/v1/user_profiles?select=%2A&username=eq.TestUser3
+  response:
+    content: '[{"username":"TestUser3","first_name":"Johnny","last_name":"Test","dob":"2001-01-01","id":"09a12100-845c-4592-9530-59d9a040ca7b","friends":[]}]'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-Ray:
+      - 836322b1bbd52956-ORD
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Location:
+      - /user_profiles?select=%2A&username=eq.TestUser3
+      Content-Profile:
+      - public
+      Content-Range:
+      - 0-0/*
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 16 Dec 2023 01:25:58 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=2592000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Via:
+      - kong/2.8.1
+      X-Kong-Proxy-Latency:
+      - '1'
+      X-Kong-Upstream-Latency:
+      - '2'
+      alt-svc:
+      - h3=":443"; ma=86400
+      sb-gateway-version:
+      - '1'
+    http_version: HTTP/1.1
+    status_code: 200
+- request:
+    body: '{}'
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      accept-profile:
+      - public
+      apikey:
+      - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
+      authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o
+      connection:
+      - keep-alive
+      content-length:
+      - '2'
+      content-profile:
+      - public
+      content-type:
+      - application/json
+      host:
+      - trrumwimmcwglaqhnnci.supabase.co
+      user-agent:
+      - python-httpx/0.24.1
+      x-client-info:
+      - supabase-py/1.2.0
+    method: GET
+    uri: https://trrumwimmcwglaqhnnci.supabase.co/rest/v1/recommendations?select=left_swipes%2Cright_swipes&id=eq.09a12100-845c-4592-9530-59d9a040ca7b
+  response:
+    content: '[{"left_swipes":["tHeYndpgtDsQqFsZpeFNUw","XRgHyiWi1dKW17VyyiyG_g"],"right_swipes":null}]'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-Ray:
+      - 836322b2bcc22956-ORD
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Location:
+      - /recommendations?id=eq.09a12100-845c-4592-9530-59d9a040ca7b&select=left_swipes%2Cright_swipes
+      Content-Profile:
+      - public
+      Content-Range:
+      - 0-0/*
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 16 Dec 2023 01:25:58 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=2592000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Via:
+      - kong/2.8.1
+      X-Kong-Proxy-Latency:
+      - '1'
+      X-Kong-Upstream-Latency:
+      - '2'
+      alt-svc:
+      - h3=":443"; ma=86400
+      sb-gateway-version:
+      - '1'
+    http_version: HTTP/1.1
+    status_code: 200
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - testserver
+      user-agent:
+      - testclient
+    method: GET
+    uri: http://testserver/auth/user/login
+  response:
+    content: '{"message":"Successfully signed in TestUser3.","user":{"dob":"2001-01-01","email":"jnmosca+testuser3@syr.edu","first_name":"Johnny","friends":[],"id":"09a12100-845c-4592-9530-59d9a040ca7b","last_name":"Test","left_swipes":["tHeYndpgtDsQqFsZpeFNUw","XRgHyiWi1dKW17VyyiyG_g"],"phone":"","right_swipes":[],"role":0,"username":"TestUser3"}}
+
+      '
+    headers:
+      content-length:
+      - '337'
+      content-type:
+      - application/json
+    http_version: HTTP/1.1
+    status_code: 200
+- request:
     body: ''
     headers:
       accept:
@@ -9,7 +247,7 @@ interactions:
       apikey:
       - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
       authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDM0LCJpYXQiOjE3MDEzODY0MzQsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjI0OTk0ODhlLTU3MTAtNDE4Yi1iZTI2LTUwMTNlZjg4MWM2MyIsImVtYWlsIjoic3V6YW5uZTk4QGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJuc3RhbmxleSJ9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzAxMzg2NDM0fV0sInNlc3Npb25faWQiOiJkNDkxYTBhMS0zY2ViLTQ2MzctOGM5Yi03MTNhOTAwYjBkODAifQ.aPDHA5X_4IDlRVPi5LbYdRlw12ags4XTk1hWMiqOceA
+      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o
       connection:
       - keep-alive
       content-type:
@@ -23,14 +261,14 @@ interactions:
     method: GET
     uri: https://trrumwimmcwglaqhnnci.supabase.co/auth/v1/user
   response:
-    content: '{"id":"2499488e-5710-418b-be26-5013ef881c63","aud":"authenticated","role":"authenticated","email":"suzanne98@gmail.com","email_confirmed_at":"2023-11-30T23:20:34.73895Z","phone":"","confirmed_at":"2023-11-30T23:20:34.73895Z","last_sign_in_at":"2023-11-30T23:20:34.741373Z","app_metadata":{"provider":"email","providers":["email"]},"user_metadata":{"role":0,"username":"nstanley"},"identities":[{"id":"2499488e-5710-418b-be26-5013ef881c63","user_id":"2499488e-5710-418b-be26-5013ef881c63","identity_data":{"email":"suzanne98@gmail.com","email_verified":false,"phone_verified":false,"sub":"2499488e-5710-418b-be26-5013ef881c63"},"provider":"email","last_sign_in_at":"2023-11-30T23:20:34.737493Z","created_at":"2023-11-30T23:20:34.737553Z","updated_at":"2023-11-30T23:20:34.737553Z"}],"created_at":"2023-11-30T23:20:34.734902Z","updated_at":"2023-11-30T23:20:34.743495Z"}'
+    content: '{"id":"09a12100-845c-4592-9530-59d9a040ca7b","aud":"authenticated","role":"authenticated","email":"jnmosca+testuser3@syr.edu","email_confirmed_at":"2023-11-01T22:34:06.509805Z","phone":"","confirmation_sent_at":"2023-11-01T22:32:07.870473Z","confirmed_at":"2023-11-01T22:34:06.509805Z","last_sign_in_at":"2023-12-16T01:25:58.140014Z","app_metadata":{"provider":"email","providers":["email"]},"user_metadata":{"role":0,"username":"TestUser3"},"identities":[{"identity_id":"6ccfc37a-49af-4b6d-97da-8d3868bb3507","id":"09a12100-845c-4592-9530-59d9a040ca7b","user_id":"09a12100-845c-4592-9530-59d9a040ca7b","identity_data":{"email":"jnmosca+testuser3@syr.edu","sub":"09a12100-845c-4592-9530-59d9a040ca7b"},"provider":"email","last_sign_in_at":"2023-11-01T22:32:07.860346Z","created_at":"2023-11-01T22:32:07.860387Z","updated_at":"2023-11-01T22:32:07.860387Z","email":"jnmosca+testuser3@syr.edu"}],"created_at":"2023-11-01T22:32:07.851463Z","updated_at":"2023-12-16T01:25:58.141681Z"}'
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-Ray:
-      - 82e6d15a68e9026c-ORD
+      - 836322b68f5c113b-ORD
       Connection:
       - keep-alive
       Content-Encoding:
@@ -38,7 +276,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 30 Nov 2023 23:19:52 GMT
+      - Sat, 16 Dec 2023 01:25:59 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -71,7 +309,7 @@ interactions:
       apikey:
       - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
       authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDM0LCJpYXQiOjE3MDEzODY0MzQsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjI0OTk0ODhlLTU3MTAtNDE4Yi1iZTI2LTUwMTNlZjg4MWM2MyIsImVtYWlsIjoic3V6YW5uZTk4QGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJuc3RhbmxleSJ9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzAxMzg2NDM0fV0sInNlc3Npb25faWQiOiJkNDkxYTBhMS0zY2ViLTQ2MzctOGM5Yi03MTNhOTAwYjBkODAifQ.aPDHA5X_4IDlRVPi5LbYdRlw12ags4XTk1hWMiqOceA
+      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o
       connection:
       - keep-alive
       content-length:
@@ -87,30 +325,30 @@ interactions:
       x-client-info:
       - supabase-py/1.2.0
     method: GET
-    uri: https://trrumwimmcwglaqhnnci.supabase.co/rest/v1/user_profiles?select=%2A&username=eq.nstanley
+    uri: https://trrumwimmcwglaqhnnci.supabase.co/rest/v1/user_profiles?select=%2A&username=eq.TestUser3
   response:
-    content: '[]'
+    content: '[{"username":"TestUser3","first_name":"Johnny","last_name":"Test","dob":"2001-01-01","id":"09a12100-845c-4592-9530-59d9a040ca7b","friends":[]}]'
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-Ray:
-      - 82e6d15edb9322ee-ORD
+      - 836322ba0e3f1151-ORD
       Connection:
       - keep-alive
       Content-Encoding:
       - gzip
       Content-Location:
-      - /user_profiles?select=%2A&username=eq.nstanley
+      - /user_profiles?select=%2A&username=eq.TestUser3
       Content-Profile:
       - public
       Content-Range:
-      - '*/*'
+      - 0-0/*
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 30 Nov 2023 23:19:53 GMT
+      - Sat, 16 Dec 2023 01:26:00 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -122,77 +360,9 @@ interactions:
       Via:
       - kong/2.8.1
       X-Kong-Proxy-Latency:
+      - '2'
+      X-Kong-Upstream-Latency:
       - '4'
-      X-Kong-Upstream-Latency:
-      - '5'
-      alt-svc:
-      - h3=":443"; ma=86400
-      sb-gateway-version:
-      - '1'
-    http_version: HTTP/1.1
-    status_code: 200
-- request:
-    body: '{"email": "jnmosca+testuser3@syr.edu", "password": "P@ssw0rd!", "data":
-      {}, "gotrue_meta_security": {"captcha_token": null}}'
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      apikey:
-      - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
-      authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDM0LCJpYXQiOjE3MDEzODY0MzQsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjI0OTk0ODhlLTU3MTAtNDE4Yi1iZTI2LTUwMTNlZjg4MWM2MyIsImVtYWlsIjoic3V6YW5uZTk4QGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJuc3RhbmxleSJ9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzAxMzg2NDM0fV0sInNlc3Npb25faWQiOiJkNDkxYTBhMS0zY2ViLTQ2MzctOGM5Yi03MTNhOTAwYjBkODAifQ.aPDHA5X_4IDlRVPi5LbYdRlw12ags4XTk1hWMiqOceA
-      connection:
-      - keep-alive
-      content-length:
-      - '124'
-      content-type:
-      - application/json;charset=UTF-8
-      host:
-      - trrumwimmcwglaqhnnci.supabase.co
-      user-agent:
-      - python-httpx/0.24.1
-      x-client-info:
-      - supabase-py/1.2.0
-    method: POST
-    uri: https://trrumwimmcwglaqhnnci.supabase.co/auth/v1/token?grant_type=password
-  response:
-    content: '{"access_token":"eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDQ1LCJpYXQiOjE3MDEzODY0NDUsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMTM4NjQ0NX1dLCJzZXNzaW9uX2lkIjoiYjcwMWUzNTYtZWIxMi00OGE3LTk5MTMtZWZiMDc4ZGI1ZjlmIn0.czkeHUT4CVgIi4ffdGUHkpNa55jg9uJ42GPortFDg4E","token_type":"bearer","expires_in":3600,"expires_at":1701390045,"refresh_token":"iw0Ec0TwL0MNlp26nDiwQg","user":{"id":"09a12100-845c-4592-9530-59d9a040ca7b","aud":"authenticated","role":"authenticated","email":"jnmosca+testuser3@syr.edu","email_confirmed_at":"2023-11-01T22:34:06.509805Z","phone":"","confirmation_sent_at":"2023-11-01T22:32:07.870473Z","confirmed_at":"2023-11-01T22:34:06.509805Z","last_sign_in_at":"2023-11-30T23:20:45.572742899Z","app_metadata":{"provider":"email","providers":["email"]},"user_metadata":{"role":0,"username":"TestUser3"},"identities":[{"id":"09a12100-845c-4592-9530-59d9a040ca7b","user_id":"09a12100-845c-4592-9530-59d9a040ca7b","identity_data":{"email":"jnmosca+testuser3@syr.edu","sub":"09a12100-845c-4592-9530-59d9a040ca7b"},"provider":"email","last_sign_in_at":"2023-11-01T22:32:07.860346Z","created_at":"2023-11-01T22:32:07.860387Z","updated_at":"2023-11-01T22:32:07.860387Z"}],"created_at":"2023-11-01T22:32:07.851463Z","updated_at":"2023-11-30T23:20:45.574471Z"}}'
-    headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
-      CF-Ray:
-      - 82e6d15f9818026c-ORD
-      Connection:
-      - keep-alive
-      Content-Encoding:
-      - gzip
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 30 Nov 2023 23:19:53 GMT
-      Server:
-      - cloudflare
-      Set-Cookie:
-      - sb-access-token=eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDQ1LCJpYXQiOjE3MDEzODY0NDUsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMTM4NjQ0NX1dLCJzZXNzaW9uX2lkIjoiYjcwMWUzNTYtZWIxMi00OGE3LTk5MTMtZWZiMDc4ZGI1ZjlmIn0.czkeHUT4CVgIi4ffdGUHkpNa55jg9uJ42GPortFDg4E;
-        Path=/; Expires=Fri, 01 Dec 2023 23:20:45 GMT; Max-Age=86400; HttpOnly; Secure
-      - sb-refresh-token=iw0Ec0TwL0MNlp26nDiwQg; Path=/; Expires=Fri, 01 Dec 2023
-        23:20:45 GMT; Max-Age=86400; HttpOnly; Secure
-      Strict-Transport-Security:
-      - max-age=2592000; includeSubDomains
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding, Origin
-      Via:
-      - kong/2.8.1
-      X-Kong-Proxy-Latency:
-      - '5'
-      X-Kong-Upstream-Latency:
-      - '89'
       alt-svc:
       - h3=":443"; ma=86400
       sb-gateway-version:
@@ -211,7 +381,7 @@ interactions:
       apikey:
       - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
       authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDQ1LCJpYXQiOjE3MDEzODY0NDUsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMTM4NjQ0NX1dLCJzZXNzaW9uX2lkIjoiYjcwMWUzNTYtZWIxMi00OGE3LTk5MTMtZWZiMDc4ZGI1ZjlmIn0.czkeHUT4CVgIi4ffdGUHkpNa55jg9uJ42GPortFDg4E
+      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o
       connection:
       - keep-alive
       content-length:
@@ -227,22 +397,22 @@ interactions:
       x-client-info:
       - supabase-py/1.2.0
     method: GET
-    uri: https://trrumwimmcwglaqhnnci.supabase.co/rest/v1/user_profiles?select=%2A&username=eq.TestUser3
+    uri: https://trrumwimmcwglaqhnnci.supabase.co/rest/v1/recommendations?select=left_swipes%2Cright_swipes&id=eq.09a12100-845c-4592-9530-59d9a040ca7b
   response:
-    content: '[{"username":"TestUser3","first_name":"Johnny","last_name":"Test","dob":"2001-01-01","id":"09a12100-845c-4592-9530-59d9a040ca7b","friends":[]}]'
+    content: '[{"left_swipes":["tHeYndpgtDsQqFsZpeFNUw","XRgHyiWi1dKW17VyyiyG_g"],"right_swipes":null}]'
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-Ray:
-      - 82e6d164387610f0-ORD
+      - 836322baff8e1151-ORD
       Connection:
       - keep-alive
       Content-Encoding:
       - gzip
       Content-Location:
-      - /user_profiles?select=%2A&username=eq.TestUser3
+      - /recommendations?id=eq.09a12100-845c-4592-9530-59d9a040ca7b&select=left_swipes%2Cright_swipes
       Content-Profile:
       - public
       Content-Range:
@@ -250,7 +420,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 30 Nov 2023 23:19:54 GMT
+      - Sat, 16 Dec 2023 01:26:00 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -262,167 +432,9 @@ interactions:
       Via:
       - kong/2.8.1
       X-Kong-Proxy-Latency:
-      - '0'
-      X-Kong-Upstream-Latency:
       - '2'
-      alt-svc:
-      - h3=":443"; ma=86400
-      sb-gateway-version:
-      - '1'
-    http_version: HTTP/1.1
-    status_code: 200
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      connection:
-      - keep-alive
-      host:
-      - testserver
-      user-agent:
-      - testclient
-    method: GET
-    uri: http://testserver/auth/user/login
-  response:
-    content: '{"message":"Successfully signed in TestUser3.","user":{"dob":"2001-01-01","email":"jnmosca+testuser3@syr.edu","first_name":"Johnny","friends":[],"id":"09a12100-845c-4592-9530-59d9a040ca7b","last_name":"Test","phone":"","role":0,"username":"TestUser3"}}
-
-      '
-    headers:
-      content-length:
-      - '253'
-      content-type:
-      - application/json
-    http_version: HTTP/1.1
-    status_code: 200
-- request:
-    body: ''
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      apikey:
-      - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
-      authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDQ1LCJpYXQiOjE3MDEzODY0NDUsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMTM4NjQ0NX1dLCJzZXNzaW9uX2lkIjoiYjcwMWUzNTYtZWIxMi00OGE3LTk5MTMtZWZiMDc4ZGI1ZjlmIn0.czkeHUT4CVgIi4ffdGUHkpNa55jg9uJ42GPortFDg4E
-      connection:
-      - keep-alive
-      content-type:
-      - application/json;charset=UTF-8
-      host:
-      - trrumwimmcwglaqhnnci.supabase.co
-      user-agent:
-      - python-httpx/0.24.1
-      x-client-info:
-      - supabase-py/1.2.0
-    method: GET
-    uri: https://trrumwimmcwglaqhnnci.supabase.co/auth/v1/user
-  response:
-    content: '{"id":"09a12100-845c-4592-9530-59d9a040ca7b","aud":"authenticated","role":"authenticated","email":"jnmosca+testuser3@syr.edu","email_confirmed_at":"2023-11-01T22:34:06.509805Z","phone":"","confirmation_sent_at":"2023-11-01T22:32:07.870473Z","confirmed_at":"2023-11-01T22:34:06.509805Z","last_sign_in_at":"2023-11-30T23:20:45.572742Z","app_metadata":{"provider":"email","providers":["email"]},"user_metadata":{"role":0,"username":"TestUser3"},"identities":[{"id":"09a12100-845c-4592-9530-59d9a040ca7b","user_id":"09a12100-845c-4592-9530-59d9a040ca7b","identity_data":{"email":"jnmosca+testuser3@syr.edu","sub":"09a12100-845c-4592-9530-59d9a040ca7b"},"provider":"email","last_sign_in_at":"2023-11-01T22:32:07.860346Z","created_at":"2023-11-01T22:32:07.860387Z","updated_at":"2023-11-01T22:32:07.860387Z"}],"created_at":"2023-11-01T22:32:07.851463Z","updated_at":"2023-11-30T23:20:45.574471Z"}'
-    headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
-      CF-Ray:
-      - 82e6d167eba1631e-ORD
-      Connection:
-      - keep-alive
-      Content-Encoding:
-      - gzip
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 30 Nov 2023 23:19:54 GMT
-      Server:
-      - cloudflare
-      Strict-Transport-Security:
-      - max-age=2592000; includeSubDomains
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding, Origin
-      Via:
-      - kong/2.8.1
-      X-Kong-Proxy-Latency:
-      - '1'
       X-Kong-Upstream-Latency:
-      - '2'
-      alt-svc:
-      - h3=":443"; ma=86400
-      sb-gateway-version:
-      - '1'
-    http_version: HTTP/1.1
-    status_code: 200
-- request:
-    body: '{}'
-    headers:
-      accept:
-      - '*/*'
-      accept-encoding:
-      - gzip, deflate
-      accept-profile:
-      - public
-      apikey:
-      - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
-      authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDQ1LCJpYXQiOjE3MDEzODY0NDUsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMTM4NjQ0NX1dLCJzZXNzaW9uX2lkIjoiYjcwMWUzNTYtZWIxMi00OGE3LTk5MTMtZWZiMDc4ZGI1ZjlmIn0.czkeHUT4CVgIi4ffdGUHkpNa55jg9uJ42GPortFDg4E
-      connection:
-      - keep-alive
-      content-length:
-      - '2'
-      content-profile:
-      - public
-      content-type:
-      - application/json
-      host:
-      - trrumwimmcwglaqhnnci.supabase.co
-      user-agent:
-      - python-httpx/0.24.1
-      x-client-info:
-      - supabase-py/1.2.0
-    method: GET
-    uri: https://trrumwimmcwglaqhnnci.supabase.co/rest/v1/user_profiles?select=%2A&username=eq.TestUser3
-  response:
-    content: '[{"username":"TestUser3","first_name":"Johnny","last_name":"Test","dob":"2001-01-01","id":"09a12100-845c-4592-9530-59d9a040ca7b","friends":[]}]'
-    headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
-      CF-Ray:
-      - 82e6d16bd99a6082-ORD
-      Connection:
-      - keep-alive
-      Content-Encoding:
-      - gzip
-      Content-Location:
-      - /user_profiles?select=%2A&username=eq.TestUser3
-      Content-Profile:
-      - public
-      Content-Range:
-      - 0-0/*
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Thu, 30 Nov 2023 23:19:55 GMT
-      Server:
-      - cloudflare
-      Strict-Transport-Security:
-      - max-age=2592000; includeSubDomains
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      Via:
-      - kong/2.8.1
-      X-Kong-Proxy-Latency:
-      - '1'
-      X-Kong-Upstream-Latency:
-      - '5'
+      - '3'
       alt-svc:
       - h3=":443"; ma=86400
       sb-gateway-version:
@@ -442,7 +454,7 @@ interactions:
       apikey:
       - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
       authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDQ1LCJpYXQiOjE3MDEzODY0NDUsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMTM4NjQ0NX1dLCJzZXNzaW9uX2lkIjoiYjcwMWUzNTYtZWIxMi00OGE3LTk5MTMtZWZiMDc4ZGI1ZjlmIn0.czkeHUT4CVgIi4ffdGUHkpNa55jg9uJ42GPortFDg4E
+      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o
       connection:
       - keep-alive
       content-length:
@@ -470,13 +482,13 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-Ray:
-      - 82e6d16cdb486082-ORD
+      - 836322bbf94f1151-ORD
       Connection:
       - keep-alive
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 30 Nov 2023 23:19:55 GMT
+      - Sat, 16 Dec 2023 01:26:00 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -488,9 +500,9 @@ interactions:
       Via:
       - kong/2.8.1
       X-Kong-Proxy-Latency:
-      - '0'
+      - '2'
       X-Kong-Upstream-Latency:
-      - '4'
+      - '13'
       alt-svc:
       - h3=":443"; ma=86400
       sb-gateway-version:
@@ -535,7 +547,7 @@ interactions:
       apikey:
       - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
       authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDQ1LCJpYXQiOjE3MDEzODY0NDUsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMTM4NjQ0NX1dLCJzZXNzaW9uX2lkIjoiYjcwMWUzNTYtZWIxMi00OGE3LTk5MTMtZWZiMDc4ZGI1ZjlmIn0.czkeHUT4CVgIi4ffdGUHkpNa55jg9uJ42GPortFDg4E
+      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o
       connection:
       - keep-alive
       content-type:
@@ -549,14 +561,14 @@ interactions:
     method: GET
     uri: https://trrumwimmcwglaqhnnci.supabase.co/auth/v1/user
   response:
-    content: '{"id":"09a12100-845c-4592-9530-59d9a040ca7b","aud":"authenticated","role":"authenticated","email":"jnmosca+testuser3@syr.edu","email_confirmed_at":"2023-11-01T22:34:06.509805Z","phone":"","confirmation_sent_at":"2023-11-01T22:32:07.870473Z","confirmed_at":"2023-11-01T22:34:06.509805Z","last_sign_in_at":"2023-11-30T23:20:45.572742Z","app_metadata":{"provider":"email","providers":["email"]},"user_metadata":{"role":0,"username":"TestUser3"},"identities":[{"id":"09a12100-845c-4592-9530-59d9a040ca7b","user_id":"09a12100-845c-4592-9530-59d9a040ca7b","identity_data":{"email":"jnmosca+testuser3@syr.edu","sub":"09a12100-845c-4592-9530-59d9a040ca7b"},"provider":"email","last_sign_in_at":"2023-11-01T22:32:07.860346Z","created_at":"2023-11-01T22:32:07.860387Z","updated_at":"2023-11-01T22:32:07.860387Z"}],"created_at":"2023-11-01T22:32:07.851463Z","updated_at":"2023-11-30T23:20:45.574471Z"}'
+    content: '{"id":"09a12100-845c-4592-9530-59d9a040ca7b","aud":"authenticated","role":"authenticated","email":"jnmosca+testuser3@syr.edu","email_confirmed_at":"2023-11-01T22:34:06.509805Z","phone":"","confirmation_sent_at":"2023-11-01T22:32:07.870473Z","confirmed_at":"2023-11-01T22:34:06.509805Z","last_sign_in_at":"2023-12-16T01:25:58.140014Z","app_metadata":{"provider":"email","providers":["email"]},"user_metadata":{"role":0,"username":"TestUser3"},"identities":[{"identity_id":"6ccfc37a-49af-4b6d-97da-8d3868bb3507","id":"09a12100-845c-4592-9530-59d9a040ca7b","user_id":"09a12100-845c-4592-9530-59d9a040ca7b","identity_data":{"email":"jnmosca+testuser3@syr.edu","sub":"09a12100-845c-4592-9530-59d9a040ca7b"},"provider":"email","last_sign_in_at":"2023-11-01T22:32:07.860346Z","created_at":"2023-11-01T22:32:07.860387Z","updated_at":"2023-11-01T22:32:07.860387Z","email":"jnmosca+testuser3@syr.edu"}],"created_at":"2023-11-01T22:32:07.851463Z","updated_at":"2023-12-16T01:25:58.141681Z"}'
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-Ray:
-      - 82e6d16dc8a7631e-ORD
+      - 836322bc9f6b113b-ORD
       Connection:
       - keep-alive
       Content-Encoding:
@@ -564,7 +576,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 30 Nov 2023 23:19:55 GMT
+      - Sat, 16 Dec 2023 01:26:00 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -576,7 +588,7 @@ interactions:
       Via:
       - kong/2.8.1
       X-Kong-Proxy-Latency:
-      - '1'
+      - '2'
       X-Kong-Upstream-Latency:
       - '2'
       alt-svc:
@@ -597,7 +609,7 @@ interactions:
       apikey:
       - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
       authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDQ1LCJpYXQiOjE3MDEzODY0NDUsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMTM4NjQ0NX1dLCJzZXNzaW9uX2lkIjoiYjcwMWUzNTYtZWIxMi00OGE3LTk5MTMtZWZiMDc4ZGI1ZjlmIn0.czkeHUT4CVgIi4ffdGUHkpNa55jg9uJ42GPortFDg4E
+      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o
       connection:
       - keep-alive
       content-length:
@@ -622,7 +634,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-Ray:
-      - 82e6d16ebd896082-ORD
+      - 836322bd8b1e1151-ORD
       Connection:
       - keep-alive
       Content-Encoding:
@@ -636,7 +648,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 30 Nov 2023 23:19:56 GMT
+      - Sat, 16 Dec 2023 01:26:00 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -648,9 +660,81 @@ interactions:
       Via:
       - kong/2.8.1
       X-Kong-Proxy-Latency:
-      - '0'
+      - '2'
       X-Kong-Upstream-Latency:
-      - '6'
+      - '2'
+      alt-svc:
+      - h3=":443"; ma=86400
+      sb-gateway-version:
+      - '1'
+    http_version: HTTP/1.1
+    status_code: 200
+- request:
+    body: '{}'
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      accept-profile:
+      - public
+      apikey:
+      - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
+      authorization:
+      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o
+      connection:
+      - keep-alive
+      content-length:
+      - '2'
+      content-profile:
+      - public
+      content-type:
+      - application/json
+      host:
+      - trrumwimmcwglaqhnnci.supabase.co
+      user-agent:
+      - python-httpx/0.24.1
+      x-client-info:
+      - supabase-py/1.2.0
+    method: GET
+    uri: https://trrumwimmcwglaqhnnci.supabase.co/rest/v1/recommendations?select=left_swipes%2Cright_swipes&id=eq.09a12100-845c-4592-9530-59d9a040ca7b
+  response:
+    content: '[{"left_swipes":["tHeYndpgtDsQqFsZpeFNUw","XRgHyiWi1dKW17VyyiyG_g"],"right_swipes":null}]'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-Ray:
+      - 836322be2c391151-ORD
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Location:
+      - /recommendations?id=eq.09a12100-845c-4592-9530-59d9a040ca7b&select=left_swipes%2Cright_swipes
+      Content-Profile:
+      - public
+      Content-Range:
+      - 0-0/*
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 16 Dec 2023 01:26:00 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=2592000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Via:
+      - kong/2.8.1
+      X-Kong-Proxy-Latency:
+      - '11'
+      X-Kong-Upstream-Latency:
+      - '2'
       alt-svc:
       - h3=":443"; ma=86400
       sb-gateway-version:
@@ -667,7 +751,7 @@ interactions:
       apikey:
       - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRycnVtd2ltbWN3Z2xhcWhubmNpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzMyMTg2OCwiZXhwIjoyMDEyODk3ODY4fQ.EwTBDa86KbXBo6NqpwKTnUTAZbGFDLcnNJr5qcis0P0
       authorization:
-      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAxMzkwMDQ1LCJpYXQiOjE3MDEzODY0NDUsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMTM4NjQ0NX1dLCJzZXNzaW9uX2lkIjoiYjcwMWUzNTYtZWIxMi00OGE3LTk5MTMtZWZiMDc4ZGI1ZjlmIn0.czkeHUT4CVgIi4ffdGUHkpNa55jg9uJ42GPortFDg4E
+      - Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6Ikg5dnFtVlUrSW04a1ZBdVkiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzAyNjkzNTU4LCJpYXQiOjE3MDI2ODk5NTgsImlzcyI6Imh0dHBzOi8vdHJydW13aW1tY3dnbGFxaG5uY2kuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjA5YTEyMTAwLTg0NWMtNDU5Mi05NTMwLTU5ZDlhMDQwY2E3YiIsImVtYWlsIjoiam5tb3NjYSt0ZXN0dXNlcjNAc3lyLmVkdSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsicm9sZSI6MCwidXNlcm5hbWUiOiJUZXN0VXNlcjMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcwMjY4OTk1OH1dLCJzZXNzaW9uX2lkIjoiZDc0M2FmZjQtMGZhOC00M2YzLWE3N2UtM2ViYWRkOGMwOThiIn0.KeH2-ZkIPfQJUZMnFDFPmcaX8IjzIXDk5qRvx1Rv3_o
       connection:
       - keep-alive
       content-length:
@@ -690,17 +774,17 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-Ray:
-      - 82e6d16f5a0c631e-ORD
+      - 836322beda0d113b-ORD
       Connection:
       - keep-alive
       Date:
-      - Thu, 30 Nov 2023 23:19:56 GMT
+      - Sat, 16 Dec 2023 01:26:00 GMT
       Server:
       - cloudflare
       Set-Cookie:
-      - sb-access-token=; Path=/; Expires=Thu, 30 Nov 2023 13:20:48 GMT; Max-Age=0;
+      - sb-access-token=; Path=/; Expires=Fri, 15 Dec 2023 15:26:00 GMT; Max-Age=0;
         HttpOnly; Secure
-      - sb-refresh-token=; Path=/; Expires=Thu, 30 Nov 2023 13:20:48 GMT; Max-Age=0;
+      - sb-refresh-token=; Path=/; Expires=Fri, 15 Dec 2023 15:26:00 GMT; Max-Age=0;
         HttpOnly; Secure
       Strict-Transport-Security:
       - max-age=2592000; includeSubDomains
@@ -711,7 +795,7 @@ interactions:
       X-Kong-Proxy-Latency:
       - '0'
       X-Kong-Upstream-Latency:
-      - '5'
+      - '8'
       alt-svc:
       - h3=":443"; ma=86400
       sb-gateway-version:
@@ -737,11 +821,12 @@ interactions:
     content: "{\n  \"message\": \"Successfully logged out TestUser3.\",\n  \"user\":
       {\n    \"dob\": \"2001-01-01\",\n    \"email\": \"jnmosca+testuser3@syr.edu\",\n
       \   \"first_name\": \"Johnny\",\n    \"friends\": [],\n    \"id\": \"09a12100-845c-4592-9530-59d9a040ca7b\",\n
-      \   \"last_name\": \"Test\",\n    \"phone\": \"\",\n    \"role\": 0,\n    \"username\":
-      \"TestUser3\"\n  }\n}\n"
+      \   \"last_name\": \"Test\",\n    \"left_swipes\": [\n      \"tHeYndpgtDsQqFsZpeFNUw\",\n
+      \     \"XRgHyiWi1dKW17VyyiyG_g\"\n    ],\n    \"phone\": \"\",\n    \"right_swipes\":
+      [],\n    \"role\": 0,\n    \"username\": \"TestUser3\"\n  }\n}\n"
     headers:
       content-length:
-      - '320'
+      - '435'
       content-type:
       - application/json
     http_version: HTTP/1.1

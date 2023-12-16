@@ -6,7 +6,7 @@ In addition to the information below on installation, setup, and testing, we hav
 | Item | Location |
 | --- | --- |
 | Bug Tracker | [docs/bugs.md](docs/bugs.md) |
-| UI/UX Designs | [designs/](designs/) |
+| UI/UX Designs | [designs/](design/design.md) |
 
 ## Installation & Setup
 1. Clone this git repository to your computer.
