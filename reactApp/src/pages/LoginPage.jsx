@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import LandingPageImage from '../assets/landingImg.png'; 
+import { Navigate } from 'react-router-dom';
 
 function LoginPage() {
   
@@ -18,7 +19,6 @@ function LoginPage() {
     try {
       const response = await axios.get('http://127.0.0.1:5000/auth/user/login', {
         headers: {
-          "Access-Control-Allow-Origin": "*",
           'Content-Type': 'application/json'
         },
         auth: {
@@ -29,6 +29,7 @@ function LoginPage() {
 
       if (response.status === 200 && response.data.id) {
         // Redirect to home page (swipe view)
+        console.log(response.data);
       } else {
         // Show error message
         setLoginError(response.data.message || 'Unknown error occurred');
@@ -37,7 +38,7 @@ function LoginPage() {
       const errorMessage = error.response ? error.response.data.message : 'Login failed';
       setLoginError(errorMessage);
     }
-  }
+  };
 
   const handleRegister = async (email, password, username, role) => {
     try {

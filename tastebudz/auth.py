@@ -60,7 +60,7 @@ def register(body):
             if res.session is None:
                 unverifiedUser = User(res.user)
                 body['message'] = 'Account created; awaiting email verification.'
-                body['user'] = unverifiedUser
+                body.update(unverifiedUser)
                 statusCode = 202
                 logging.getLogger().warn(f"[AUTH/REGISTER] Account created for {unverifiedUser.username} pending email verification at {unverifiedUser.email}")
             # User account created successfully:
@@ -68,7 +68,7 @@ def register(body):
                 g.user = User(res.user)
                 
                 body['message'] = 'Account created successfully.'
-                body['user'] = g.user
+                body.update(g.user)
                 statusCode = 201
                 logging.getLogger().warn(f"[AUTH/REGISTER] Account created for {g.user.username}")
     elif not email:
@@ -108,8 +108,8 @@ def deleteUser(username:str):
         else:
             body = {
                 "message": f"Successfully deleted {g.user.username or g.user.email}.",
-                "user": g.user
             }
+            body.update(g.user)
             statusCode = 200
             logging.getLogger().info(f"[AUTH/DELETE] Permanently deleted {g.user.username}")
             # Cleanup logged-in:
@@ -215,10 +215,8 @@ def login(oauth_provider:str=None, access_token:str=None, refresh_token:str=None
     # If we have been authenticated, finish logging in:
     if g.get('user') is not None:
         # print(res)
-        body = {
-            "message": f"Successfully signed in {g.user.username or g.user.email}.",
-            "user": g.user
-        }
+        body = {"message": f"Successfully signed in {g.user.username or g.user.email}."}
+        body.update(g.user)
         statusCode = 200
     response = make_response(body, statusCode, headers)
     # response.set_cookie
@@ -244,10 +242,8 @@ def logout():
         body["message"] = str(error)
         statusCode = 500
     else:
-        body = {
-            "message": f"Successfully logged out {g.user.username or g.user.email}.",
-            "user": g.user
-        }
+        body = { "message": f"Successfully logged out {g.user.username or g.user.email}." }
+        body.update(g.user)
         statusCode = 200
         
     return body, statusCode
@@ -262,10 +258,8 @@ def getUserProfile(username:str):
         body = { "message": f"{type(error)}: {str(error)}" }
         statusCode = 500
     else:
-        body = {
-            "message": f"Successfully retrieved user profile for {g.user.username or g.user.email}.",
-            "user": g.user
-        }
+        body = { "message": f"Successfully retrieved user profile for {g.user.username or g.user.email}." }
+        body.update(g.user)
         statusCode = 200
         
     return body, statusCode
@@ -291,10 +285,8 @@ def createUserProfile(username:str, body):
             body = { "message": f"{type(error)}: {str(error)}" }
             statusCode = 500
         else:
-            body = {
-                "message": f"Created user profile for {g.user.username or g.user.email}.",
-                "user": g.user
-            }
+            body = { "message": f"Created user profile for {g.user.username or g.user.email}." }
+            body.update(g.user)
             statusCode = 201
         
     return body, statusCode
@@ -312,10 +304,8 @@ def updateUserProfile(username:str, body):
         body = { "message": f"{type(error)}: {str(error)}" }
         statusCode = 500
     else:
-        body = {
-            "message": f"Successfully updated user profile for {g.user.username or g.user.email}",
-            "user": g.user
-        }
+        body = { "message": f"Successfully updated user profile for {g.user.username or g.user.email}" }
+        body.update(g.user)
         statusCode = 200
         
     return body, statusCode
