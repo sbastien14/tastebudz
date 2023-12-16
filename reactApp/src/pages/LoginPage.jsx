@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import LandingPageImage from '../assets/landingImg.png'; 
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function LoginPage() {
   
@@ -14,6 +14,7 @@ function LoginPage() {
   const [registerError, setRegisterError] = useState('');
 
   const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -29,7 +30,7 @@ function LoginPage() {
 
       if (response.status === 200 && response.data.id) {
         // Redirect to home page (swipe view)
-        console.log(response.data);
+        navigate('/home');
       } else {
         // Show error message
         setLoginError(response.data.message || 'Unknown error occurred');
